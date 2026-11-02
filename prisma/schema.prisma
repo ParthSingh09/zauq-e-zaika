@@ -1,0 +1,396 @@
+// Zauq e Zaika — database schema (PostgreSQL)
+// Money is stored as integer paise (₹1 = 100 paise) to avoid floating point errors.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+// ───────────────────────── Users & auth ─────────────────────────
+
+enum Role {
+  ADMIN
+  CUSTOMER
+}
+
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  name         String
+  phone        String?
+  passwordHash String
+  role         Role     @default(CUSTOMER)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  sessions     Session[]
+  orders       Order[]
+  savedRecipes SavedRecipe[]
+  wishlist     WishlistItem[]
+  reviews      RecipeReview[]
+}
+
+model Session {
+  id        String   @id @default(cuid())
+  // SHA-256 hash of the session token; the raw token only lives in the httpOnly cookie.
+  tokenHash String   @unique
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+}
+
+// Generic fixed-window rate limiter that works across serverless instances.
+model RateLimit {
+  key     String   @id
+  count   Int
+  resetAt DateTime
+}
+
+// ───────────────────────── Recipes ─────────────────────────
+
+enum Diet {
+  VEG
+  NON_VEG
+  EGG
+  VEGAN
+}
+
+enum Difficulty {
+  EASY
+  MEDIUM
+  HARD
+}
+
+model RecipeCategory {
+  id          String   @id @default(cuid())
+  name        String
+  slug        String   @unique
+  description String?
+  image       String?
+  sortOrder   Int      @default(0)
+  recipes     Recipe[]
+}
+
+model Recipe {
+  id             String          @id @default(cuid())
+  slug           String          @unique
+  title          String
+  excerpt        String
+  intro          String          @default("")
+  image          String?
+  imageAlt       String?
+  cuisine        String?
+  diet           Diet            @default(VEG)
+  difficulty     Difficulty      @default(EASY)
+  prepMinutes    Int             @default(0)
+  cookMinutes    Int             @default(0)
+  servings       Int             @default(2)
+  /// [{ group?: string, name: string, quantity: number|null, unit: string, note?: string }]
+  ingredients    Json            @default("[]")
+  /// [{ title?: string, text: string }]
+  steps          Json            @default("[]")
+  /// string[]
+  tips           Json            @default("[]")
+  /// string[]
+  substitutions  Json            @default("[]")
+  /// { calories?: string, protein?: string, ... } — only fill with reliable data
+  nutrition      Json?
+  youtubeUrl     String?
+  tags           String[]        @default([])
+  seoTitle       String?
+  seoDescription String?
+  /// Marks placeholder/demo content that must be replaced before launch.
+  isSample       Boolean         @default(false)
+  published      Boolean         @default(false)
+  featured       Boolean         @default(false)
+  views          Int             @default(0)
+  publishedAt    DateTime?
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+
+  categoryId     String?
+  category       RecipeCategory? @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+  reviews        RecipeReview[]
+  savedBy        SavedRecipe[]
+  videos         Video[]
+
+  @@index([published, publishedAt])
+  @@index([categoryId])
+}
+
+model RecipeReview {
+  id        String   @id @default(cuid())
+  recipeId  String
+  recipe    Recipe   @relation(fields: [recipeId], references: [id], onDelete: Cascade)
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  rating    Int
+  comment   String   @default("")
+  approved  Boolean  @default(true)
+  createdAt DateTime @default(now())
+
+  @@unique([recipeId, userId])
+}
+
+model SavedRecipe {
+  userId    String
+  recipeId  String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  recipe    Recipe   @relation(fields: [recipeId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  @@id([userId, recipeId])
+}
+
+// ───────────────────────── Videos ─────────────────────────
+
+model Video {
+  id          String    @id @default(cuid())
+  youtubeId   String    @unique
+  title       String
+  description String    @default("")
+  publishedAt DateTime?
+  featured    Boolean   @default(false)
+  published   Boolean   @default(true)
+  sortOrder   Int       @default(0)
+  recipeId    String?
+  recipe      Recipe?   @relation(fields: [recipeId], references: [id], onDelete: SetNull)
+  createdAt   DateTime  @default(now())
+}
+
+// ───────────────────────── Shop ─────────────────────────
+
+enum ProductStatus {
+  ACTIVE
+  DRAFT
+  ARCHIVED
+}
+
+model ProductCategory {
+  id          String    @id @default(cuid())
+  name        String
+  slug        String    @unique
+  description String?
+  sortOrder   Int       @default(0)
+  products    Product[]
+}
+
+model Product {
+  id               String           @id @default(cuid())
+  slug             String           @unique
+  name             String
+  shortDescription String           @default("")
+  description      String           @default("")
+  images           String[]         @default([])
+  pricePaise       Int
+  compareAtPaise   Int?
+  trackStock       Boolean          @default(false)
+  stock            Int              @default(0)
+  status           ProductStatus    @default(DRAFT)
+  /// Temporarily unavailable (e.g. sold out for today) while still listed.
+  available        Boolean          @default(true)
+  /// Demonstration entry: shown in the shop but can never be purchased.
+  isSample         Boolean          @default(false)
+  featured         Boolean          @default(false)
+  diet             Diet             @default(VEG)
+  weight           String?
+  shelfLife        String?
+  ingredientsText  String?
+  allergens        String?
+  createdAt        DateTime         @default(now())
+  updatedAt        DateTime         @updatedAt
+
+  categoryId       String?
+  category         ProductCategory? @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+  variants         ProductVariant[]
+  wishlistedBy     WishlistItem[]
+  orderItems       OrderItem[]
+
+  @@index([status])
+}
+
+model ProductVariant {
+  id         String      @id @default(cuid())
+  productId  String
+  product    Product     @relation(fields: [productId], references: [id], onDelete: Cascade)
+  name       String
+  pricePaise Int
+  stock      Int         @default(0)
+  sku        String?
+  sortOrder  Int         @default(0)
+  orderItems OrderItem[]
+}
+
+model WishlistItem {
+  userId    String
+  productId String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  @@id([userId, productId])
+}
+
+model DeliveryRegion {
+  id             String  @id @default(cuid())
+  name           String
+  /// Postal codes or prefixes served, e.g. ["110001", "1100"]
+  postalCodes    String[] @default([])
+  chargePaise    Int     @default(0)
+  freeAbovePaise Int?
+  minOrderPaise  Int     @default(0)
+  active         Boolean @default(true)
+  orders         Order[]
+}
+
+enum Fulfillment {
+  DELIVERY
+  PICKUP
+}
+
+enum OrderStatus {
+  PENDING
+  CONFIRMED
+  PREPARING
+  OUT_FOR_DELIVERY
+  READY_FOR_PICKUP
+  DELIVERED
+  CANCELLED
+}
+
+enum PaymentStatus {
+  UNPAID
+  PENDING
+  PAID
+  FAILED
+  REFUNDED
+}
+
+enum PaymentMethod {
+  PAY_ON_DELIVERY
+  RAZORPAY
+}
+
+model Order {
+  id                String          @id @default(cuid())
+  orderNumber       String          @unique
+  /// Random secret that lets guests view their own order.
+  accessToken       String          @unique
+  userId            String?
+  user              User?           @relation(fields: [userId], references: [id], onDelete: SetNull)
+  name              String
+  email             String
+  phone             String
+  fulfillment       Fulfillment
+  addressLine1      String?
+  addressLine2      String?
+  city              String?
+  state             String?
+  postalCode        String?
+  deliveryRegionId  String?
+  deliveryRegion    DeliveryRegion? @relation(fields: [deliveryRegionId], references: [id], onDelete: SetNull)
+  notes             String?
+  subtotalPaise     Int
+  deliveryPaise     Int
+  totalPaise        Int
+  status            OrderStatus     @default(PENDING)
+  paymentMethod     PaymentMethod
+  paymentStatus     PaymentStatus   @default(UNPAID)
+  razorpayOrderId   String?         @unique
+  razorpayPaymentId String?
+  cancelReason      String?
+  createdAt         DateTime        @default(now())
+  updatedAt         DateTime        @updatedAt
+
+  items             OrderItem[]
+  events            OrderEvent[]
+
+  @@index([email])
+  @@index([status])
+}
+
+model OrderItem {
+  id          String          @id @default(cuid())
+  orderId     String
+  order       Order           @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  productId   String?
+  product     Product?        @relation(fields: [productId], references: [id], onDelete: SetNull)
+  variantId   String?
+  variant     ProductVariant? @relation(fields: [variantId], references: [id], onDelete: SetNull)
+  name        String
+  variantName String?
+  unitPaise   Int
+  quantity    Int
+}
+
+model OrderEvent {
+  id        String      @id @default(cuid())
+  orderId   String
+  order     Order       @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  status    OrderStatus
+  note      String?
+  createdAt DateTime    @default(now())
+}
+
+// ───────────────────────── Community & content ─────────────────────────
+
+enum EnquiryStatus {
+  NEW
+  IN_PROGRESS
+  RESOLVED
+}
+
+model Enquiry {
+  id        String        @id @default(cuid())
+  name      String
+  email     String
+  phone     String?
+  subject   String
+  message   String
+  status    EnquiryStatus @default(NEW)
+  createdAt DateTime      @default(now())
+}
+
+model NewsletterSubscriber {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now())
+}
+
+/// Real customer testimonials only — added by the admin with the customer's permission.
+model Testimonial {
+  id        String   @id @default(cuid())
+  name      String
+  location  String?
+  quote     String
+  published Boolean  @default(false)
+  sortOrder Int      @default(0)
+  createdAt DateTime @default(now())
+}
+
+/// Editable long-form pages (About, legal policies, FAQ).
+model Page {
+  slug        String   @id
+  title       String
+  /// Lightweight markdown: #/## headings, paragraphs, - lists, **bold**, [links](url)
+  body        String
+  /// Shows a "requires review before launch" notice.
+  needsReview Boolean  @default(true)
+  updatedAt   DateTime @updatedAt
+}
+
+/// Key/value JSON settings: announcement, hero, contact, social, shop, etc.
+model SiteSetting {
+  key       String   @id
+  value     Json
+  updatedAt DateTime @updatedAt
+}

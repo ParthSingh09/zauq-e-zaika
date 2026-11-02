@@ -1,26 +1,136 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/* ─────────────── Zauq e Zaika design tokens ─────────────── */
+@theme {
+  --color-ivory: #fffdf8;
+  --color-cream: #f7f0e5;
+  --color-sand: #efe4d2;
+  --color-beige: #e4d3ba;
+  --color-ink: #39271e;
+  --color-cocoa: #5a3d2e;
+  --color-muted: #78665a;
+  --color-gold: #d6a04a;
+  --color-gold-deep: #94681f;
+  --color-spice: #c76b35;
+  --color-spice-deep: #a5522a;
+  --color-veg: #2f7d32;
+  --color-nonveg: #a3301e;
+  --color-line: #eadcc6;
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  --font-serif: var(--font-fraunces), "Georgia", serif;
+  --font-sans: var(--font-dm-sans), ui-sans-serif, system-ui, sans-serif;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  --radius-card: 1.25rem;
+  --shadow-soft: 0 1px 2px rgb(57 39 30 / 0.04), 0 8px 24px -8px rgb(57 39 30 / 0.12);
+  --shadow-lift: 0 2px 4px rgb(57 39 30 / 0.05), 0 18px 40px -12px rgb(57 39 30 / 0.22);
+
+  --animate-fade-up: fade-up 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  @keyframes fade-up {
+    from { opacity: 0; transform: translateY(14px); }
+    to { opacity: 1; transform: none; }
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+  }
+  body {
+    background: var(--color-ivory);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3, h4 {
+    font-family: var(--font-serif);
+    font-weight: 500;
+    letter-spacing: -0.015em;
+    line-height: 1.12;
+    text-wrap: balance;
+  }
+  p { text-wrap: pretty; }
+  ::selection { background: rgb(214 160 74 / 0.35); }
+  :focus-visible {
+    outline: 2px solid var(--color-spice-deep);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
 }
+
+@utility btn {
+  @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-semibold tracking-wide
+    transition-all duration-300 disabled:cursor-not-allowed disabled:opacity-50 select-none;
+}
+@utility chip {
+  @apply inline-flex items-center gap-1.5 rounded-full border border-line bg-white px-3.5 py-1.5 text-sm text-cocoa
+    transition hover:border-gold hover:text-ink;
+}
+
+@layer components {
+  .container-page { @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8; }
+
+  .eyebrow {
+    @apply text-xs font-semibold tracking-[0.22em] uppercase text-gold-deep;
+  }
+
+  .btn-primary { @apply btn bg-ink text-ivory hover:bg-cocoa hover:shadow-lift; }
+  .btn-accent { @apply btn bg-spice-deep text-white hover:bg-[#8f4522] hover:shadow-lift; }
+  .btn-outline { @apply btn border border-ink/25 text-ink hover:border-ink hover:bg-ink hover:text-ivory; }
+  .btn-ghost { @apply btn px-3 text-ink hover:bg-sand; }
+  .btn-sm { @apply px-4 py-2 text-xs; }
+
+  .card {
+    @apply rounded-[var(--radius-card)] bg-white shadow-[var(--shadow-soft)] ring-1 ring-line/60;
+  }
+
+  .field-label { @apply mb-1.5 block text-sm font-medium text-ink; }
+  .field {
+    @apply block w-full rounded-xl border border-beige bg-white px-4 py-2.5 text-[15px] text-ink placeholder:text-muted/70
+      transition focus:border-gold focus:ring-4 focus:ring-gold/20 focus:outline-none aria-[invalid=true]:border-nonveg;
+  }
+  .field-hint { @apply mt-1 text-xs text-muted; }
+  .field-error { @apply mt-1 text-xs font-medium text-nonveg; }
+
+  .chip-active { @apply border-ink bg-ink text-ivory hover:text-ivory; }
+
+  /* Long-form content (recipes, policies, about) */
+  .prose-zz { @apply text-[17px] leading-[1.75] text-cocoa; }
+  .prose-zz h2 { @apply mt-10 mb-3 text-2xl text-ink sm:text-3xl; }
+  .prose-zz h3 { @apply mt-8 mb-2 text-xl text-ink; }
+  .prose-zz p { @apply my-4; }
+  .prose-zz ul { @apply my-4 list-disc space-y-1.5 pl-6 marker:text-gold; }
+  .prose-zz ol { @apply my-4 list-decimal space-y-1.5 pl-6 marker:text-gold-deep; }
+  .prose-zz a { @apply font-medium text-spice-deep underline decoration-gold/50 underline-offset-4 hover:decoration-spice-deep; }
+  .prose-zz strong { @apply font-semibold text-ink; }
+  .prose-zz blockquote { @apply my-6 border-l-2 border-gold pl-5 font-serif text-xl text-ink italic; }
+
+  .ornament {
+    @apply flex items-center justify-center gap-3 text-gold;
+  }
+  .ornament::before, .ornament::after {
+    content: "";
+    @apply h-px w-12 bg-gradient-to-r from-transparent to-gold/70;
+  }
+  .ornament::after { @apply bg-gradient-to-l; }
+
+  .skeleton { @apply animate-pulse rounded-xl bg-sand/70; }
+}
+
+/* Print-friendly recipes */
+@media print {
+  header, footer, nav, .no-print, [data-no-print] { display: none !important; }
+  body { background: #fff; color: #000; }
+  .print-only { display: block !important; }
+  a { text-decoration: none; color: inherit; }
+}
+.print-only { display: none; }
