@@ -62,7 +62,7 @@ Shelf life is listed on each product page. [Add storage guidance.]
 Zauq-e-Zaika is a cloud kitchen based in Lucknow, Uttar Pradesh. [Add pickup, delivery and operating-hours details.]
 
 ### Where can I follow you?
-On Instagram: [@ZauqeZaika](https://www.instagram.com/zauqezaika/).
+On Instagram: [@zauq.e.zaika](https://www.instagram.com/zauq.e.zaika?mdxt=MXI3eG5pNHFpMmw5NA==).
 
 ## Contact
 
@@ -219,7 +219,7 @@ We do not currently use analytics or advertising cookies. If we add them in futu
 
 ## Social media
 
-This website links to our Instagram profile (@ZauqeZaika). Instagram is a separate service with its own privacy and cookie practices, which apply once you leave our website.
+This website links to our Instagram profile (@zauq.e.zaika). Instagram is a separate service with its own privacy and cookie practices, which apply once you leave our website.
 
 ## Managing cookies
 

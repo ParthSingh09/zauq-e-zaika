@@ -1,6 +1,6 @@
 # Zauq-e-Zaika — *Homemade with Love*
 
-The website for **Zauq-e-Zaika**, a cloud kitchen in **Lucknow, Uttar Pradesh**. Instagram: [@ZauqeZaika](https://www.instagram.com/zauqezaika/). It brings three things together:
+The website for **Zauq-e-Zaika**, a cloud kitchen in **Lucknow, Uttar Pradesh**. Instagram: [@zauq.e.zaika](https://www.instagram.com/zauq.e.zaika?mdxt=MXI3eG5pNHFpMmw5NA==). It brings three things together:
 
 1. **A brand website** with the story, philosophy and contact details.
 2. **A recipe platform** with search, filters, a servings scaler, ratings, favourites and printing.
@@ -253,7 +253,7 @@ After each later schema change, run `npm run db:deploy` (with `DIRECT_URL` set) 
 - [ ] Real food photography for recipes, products, the hero, the About page and categories
 - [ ] Your logo as a transparent PNG or SVG (a text logo is used for now: `src/components/layout/Logo.tsx`)
 - [ ] Your personal story for the About page
-- [ ] Email, phone and WhatsApp number (Instagram is already linked to @ZauqeZaika)
+- [ ] Email, phone and WhatsApp number (Instagram is already linked to @zauq.e.zaika)
 
 **Business & legal**
 - [ ] Legal business name, address and grievance officer for the policies

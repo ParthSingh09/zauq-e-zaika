@@ -141,7 +141,7 @@ async function loadSettings(): Promise<Settings> {
   return merged as Settings;
 }
 
-export const getSettings = unstable_cache(loadSettings, ["site-settings", "v2"], {
+export const getSettings = unstable_cache(loadSettings, ["site-settings", "v3"], {
   tags: [SETTINGS_TAG],
   revalidate: 3600,
 });

@@ -8,8 +8,8 @@ export const BRAND = {
   country: "IN",
   description:
     "Zauq-e-Zaika is a cloud kitchen in Lucknow, Uttar Pradesh — authentic Indian flavours, homemade with love.",
-  instagram: "https://www.instagram.com/zauqezaika/",
-  instagramHandle: "@ZauqeZaika",
+  instagram: "https://www.instagram.com/zauq.e.zaika?mdxt=MXI3eG5pNHFpMmw5NA==",
+  instagramHandle: "@zauq.e.zaika",
 } as const;
 
 export const MAIN_NAV = [

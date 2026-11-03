@@ -37,7 +37,7 @@ async function main() {
   if (social && social.value && typeof social.value === "object") {
     const rest = { ...(social.value as Record<string, unknown>) };
     delete rest.youtube;
-    const next = { ...rest, instagram: rest.instagram || "https://www.instagram.com/zauqezaika/" };
+    const next = { ...rest, instagram: rest.instagram || "https://www.instagram.com/zauq.e.zaika?mdxt=MXI3eG5pNHFpMmw5NA==" };
     await prisma.siteSetting.update({ where: { key: "social" }, data: { value: next as object } });
     settings++;
   }
@@ -49,6 +49,21 @@ async function main() {
       settings++;
     }
   }
+  // Instagram correction: the profile is @zauq.e.zaika. Replace the earlier wrong link/handle wherever it was stored,
+  // as a plain text swap so any other edits you made to these pages are kept.
+  const WRONG_URL = /https:\/\/www\.instagram\.com\/zauqezaika\/?/g;
+  const NEW_URL = "https://www.instagram.com/zauq.e.zaika?mdxt=MXI3eG5pNHFpMmw5NA==";
+  let igFixed = 0;
+  for (const row of await prisma.page.findMany()) {
+    const body = row.body.replace(WRONG_URL, NEW_URL).replaceAll("@ZauqeZaika", "@zauq.e.zaika");
+    if (body !== row.body) { await prisma.page.update({ where: { slug: row.slug }, data: { body } }); igFixed++; }
+  }
+  for (const row of await prisma.siteSetting.findMany()) {
+    const text = JSON.stringify(row.value);
+    const fixed = text.replace(WRONG_URL, NEW_URL).replaceAll("@ZauqeZaika", "@zauq.e.zaika");
+    if (fixed !== text) { await prisma.siteSetting.update({ where: { key: row.key }, data: { value: JSON.parse(fixed) } }); igFixed++; }
+  }
+  console.log(`✓ Instagram link corrected in ${igFixed} stored item(s)`);
   console.log(`✓ Rebrand: ${pages} page(s), ${recipes} sample recipe(s), ${settings} setting(s) updated`);
 }
 
