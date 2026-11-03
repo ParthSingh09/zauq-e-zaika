@@ -18,7 +18,7 @@ export const revalidate = 300;
 
 export const metadata = {
   ...pageMetadata({ path: "/" }),
-  title: { absolute: `${BRAND.name} — Authentic Homemade Indian Recipes & Food` },
+  title: { absolute: `${BRAND.name} — Cloud Kitchen in Lucknow | Homemade with Love` },
 };
 
 const WHY_ICONS = [ChefHat, HeartHandshake, Leaf, Sparkles];
