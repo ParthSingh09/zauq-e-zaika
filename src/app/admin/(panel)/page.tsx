@@ -69,7 +69,7 @@ export default async function AdminDashboard() {
 
       <div className="grid grid-cols-2 gap-4 lg:grid-cols-3">
         {stats.map(({ label, value, sub, href, icon: Icon }) => (
-          <Link key={label} href={href} className="rounded-2xl border border-line bg-white p-5 transition hover:border-gold hover:shadow-[var(--shadow-soft)]">
+          <Link key={label} href={href} className="rounded-2xl border border-line bg-card p-5 transition hover:border-gold hover:shadow-[var(--shadow-soft)]">
             <div className="flex items-center justify-between">
               <span className="text-sm text-muted">{label}</span>
               <Icon className="h-4 w-4 text-gold-deep" aria-hidden />

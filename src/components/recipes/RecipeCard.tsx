@@ -12,7 +12,7 @@ export function RecipeCard({ recipe, priority = false, headingLevel = "h3" }: { 
   const H = headingLevel;
   const total = recipe.prepMinutes + recipe.cookMinutes;
   return (
-    <article className="group relative flex h-full flex-col overflow-hidden rounded-[var(--radius-card)] bg-white ring-1 ring-line/70 transition duration-500 hover:-translate-y-1 hover:shadow-[var(--shadow-lift)]">
+    <article className="group relative flex h-full flex-col overflow-hidden rounded-[var(--radius-card)] bg-card ring-1 ring-line/70 transition duration-500 hover:-translate-y-1 hover:shadow-[var(--shadow-lift)]">
       <div className="relative aspect-[4/3] overflow-hidden bg-cream">
         <Image
           src={recipe.image || FALLBACK}

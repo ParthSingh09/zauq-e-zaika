@@ -105,7 +105,7 @@ export function CheckoutForm({ options, defaults }: { options: Options; defaults
 
   if (ready && !items.length && !state.ok)
     return (
-      <div className="rounded-2xl border border-line bg-white p-10 text-center">
+      <div className="rounded-2xl border border-line bg-card p-10 text-center">
         <p className="text-lg text-cocoa">Your cart is empty.</p>
         <Link href="/shop" className="btn-primary mt-6">Visit the shop</Link>
       </div>
@@ -138,7 +138,7 @@ export function CheckoutForm({ options, defaults }: { options: Options; defaults
             <div className="mb-5 grid grid-cols-2 gap-3" role="radiogroup" aria-label="Fulfilment method">
               {(["DELIVERY", "PICKUP"] as const).map((f) => (
                 <button key={f} type="button" role="radio" aria-checked={fulfillment === f} onClick={() => setFulfillment(f)}
-                  className={cn("rounded-2xl border p-4 text-left transition", fulfillment === f ? "border-ink bg-ink text-ivory" : "border-line bg-white hover:border-gold")}>
+                  className={cn("rounded-2xl border p-4 text-left transition", fulfillment === f ? "border-ink bg-ink text-ivory" : "border-line bg-card hover:border-gold")}>
                   <span className="font-semibold">{f === "DELIVERY" ? "Home delivery" : "Pickup"}</span>
                   <span className={cn("mt-1 block text-xs", fulfillment === f ? "text-ivory/70" : "text-muted")}>
                     {f === "DELIVERY" ? "To serviceable PIN codes" : "Collect from our kitchen"}
@@ -163,7 +163,7 @@ export function CheckoutForm({ options, defaults }: { options: Options; defaults
               <p className="rounded-xl bg-cream px-4 py-3 text-sm text-cocoa">Delivery areas have not been set up yet, so delivery orders can’t be placed.</p>
             )
           ) : (
-            <div className="rounded-2xl border border-line bg-white p-5 text-sm text-cocoa">
+            <div className="rounded-2xl border border-line bg-card p-5 text-sm text-cocoa">
               <p className="font-semibold text-ink">Pickup location</p>
               <p className="mt-1 whitespace-pre-line">{options.pickupAddress || "Pickup details will be shared after your order is confirmed."}</p>
               {options.pickupInstructions && <p className="mt-2 text-muted">{options.pickupInstructions}</p>}
@@ -183,7 +183,7 @@ export function CheckoutForm({ options, defaults }: { options: Options; defaults
           <div className="space-y-3" role="radiogroup" aria-label="Payment method">
             {options.razorpayAvailable && (
               <button type="button" role="radio" aria-checked={payment === "RAZORPAY"} onClick={() => setPayment("RAZORPAY")}
-                className={cn("flex w-full items-start gap-3 rounded-2xl border p-4 text-left transition", payment === "RAZORPAY" ? "border-ink ring-1 ring-ink" : "border-line bg-white hover:border-gold")}>
+                className={cn("flex w-full items-start gap-3 rounded-2xl border p-4 text-left transition", payment === "RAZORPAY" ? "border-ink ring-1 ring-ink" : "border-line bg-card hover:border-gold")}>
                 <span className={cn("mt-1 h-4 w-4 shrink-0 rounded-full border-2", payment === "RAZORPAY" ? "border-ink bg-ink" : "border-beige")} />
                 <span>
                   <span className="font-semibold text-ink">Pay online — UPI, cards, netbanking</span>
@@ -193,7 +193,7 @@ export function CheckoutForm({ options, defaults }: { options: Options; defaults
             )}
             {options.allowPayOnDelivery && (
               <button type="button" role="radio" aria-checked={payment === "PAY_ON_DELIVERY"} onClick={() => setPayment("PAY_ON_DELIVERY")}
-                className={cn("flex w-full items-start gap-3 rounded-2xl border p-4 text-left transition", payment === "PAY_ON_DELIVERY" ? "border-ink ring-1 ring-ink" : "border-line bg-white hover:border-gold")}>
+                className={cn("flex w-full items-start gap-3 rounded-2xl border p-4 text-left transition", payment === "PAY_ON_DELIVERY" ? "border-ink ring-1 ring-ink" : "border-line bg-card hover:border-gold")}>
                 <span className={cn("mt-1 h-4 w-4 shrink-0 rounded-full border-2", payment === "PAY_ON_DELIVERY" ? "border-ink bg-ink" : "border-beige")} />
                 <span>
                   <span className="font-semibold text-ink">Pay on {fulfillment === "PICKUP" ? "pickup" : "delivery"}</span>
@@ -222,7 +222,7 @@ export function CheckoutForm({ options, defaults }: { options: Options; defaults
         <ul className="divide-y divide-line/70" aria-busy={loading}>
           {(quote?.lines ?? []).map((l) => (
             <li key={`${l.productId}-${l.variantId}`} className="flex items-center gap-3 py-3">
-              <span className="relative h-14 w-14 shrink-0 overflow-hidden rounded-xl bg-white">
+              <span className="relative h-14 w-14 shrink-0 overflow-hidden rounded-xl bg-card">
                 {l.image && <Image src={l.image} alt="" fill sizes="56px" className="object-cover" />}
                 <span className="absolute -top-0 -right-0 rounded-bl-lg bg-ink px-1.5 text-[11px] font-bold text-ivory">{l.quantity}</span>
               </span>

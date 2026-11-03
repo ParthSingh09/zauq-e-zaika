@@ -24,13 +24,13 @@ export default async function VideosPage() {
 
   return (
     <>
-      <section className="relative overflow-hidden bg-ink text-ivory">
+      <section className="relative overflow-hidden bg-night text-paper">
         <div className="pointer-events-none absolute -right-24 -bottom-24 h-80 w-80 rounded-full bg-gold/15 blur-3xl" />
         <div className="container-page relative flex flex-col gap-8 py-16 sm:py-20 lg:flex-row lg:items-end lg:justify-between">
           <div className="max-w-2xl">
             <p className="eyebrow mb-3 text-gold">The video kitchen</p>
             <h1 className="text-4xl sm:text-5xl lg:text-6xl">Cook Along with Us</h1>
-            <p className="mt-5 text-lg text-ivory/75">
+            <p className="mt-5 text-lg text-paper/75">
               Every recipe, shown step by step from our home kitchen. Press play, grab your kadhai and let’s cook together.
             </p>
           </div>

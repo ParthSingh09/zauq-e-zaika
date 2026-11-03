@@ -18,10 +18,10 @@ export function Logo({ className, tone = "dark" }: { className?: string; tone?: 
     <Link href="/" className={cn("group inline-flex items-center gap-2.5", className)} aria-label="Zauq e Zaika — home">
       <LogoMark className="h-9 w-9 transition-transform duration-500 group-hover:-rotate-6" />
       <span className="flex flex-col leading-none">
-        <span className={cn("font-serif text-[1.35rem] font-medium tracking-tight", tone === "dark" ? "text-ink" : "text-ivory")}>
-          Zauq <span className="italic text-gold-deep">e</span> Zaika
+        <span className={cn("font-serif text-[1.35rem] font-medium tracking-tight", tone === "dark" ? "text-ink" : "text-paper")}>
+          Zauq <span className={cn("italic", tone === "dark" ? "text-gold-deep" : "text-gold")}>e</span> Zaika
         </span>
-        <span className={cn("mt-1 text-[0.58rem] font-semibold tracking-[0.16em] whitespace-nowrap uppercase sm:text-[0.62rem] sm:tracking-[0.24em]", tone === "dark" ? "text-muted" : "text-beige")}>
+        <span className={cn("mt-1 text-[0.58rem] font-semibold tracking-[0.16em] whitespace-nowrap uppercase sm:text-[0.62rem] sm:tracking-[0.24em]", tone === "dark" ? "text-muted" : "text-paper/60")}>
           Har Zaika, Dil Se ♡
         </span>
       </span>

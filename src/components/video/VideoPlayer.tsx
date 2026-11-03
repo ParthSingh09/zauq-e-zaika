@@ -13,7 +13,7 @@ import { cn } from "@/lib/utils";
 export function VideoPlayer({ id, title, className, priority }: { id: string; title: string; className?: string; priority?: boolean }) {
   const [active, setActive] = useState(false);
   return (
-    <div className={cn("relative aspect-video overflow-hidden rounded-[var(--radius-card)] bg-ink", className)}>
+    <div className={cn("relative aspect-video overflow-hidden rounded-[var(--radius-card)] bg-night", className)}>
       {active ? (
         <iframe
           src={youtubeEmbedUrl(id)}

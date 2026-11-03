@@ -66,7 +66,7 @@ export function CartView({ checkoutEnabled, notice }: { checkoutEnabled: boolean
                 <p className="mt-2 flex items-center gap-1.5 text-sm text-nonveg"><AlertCircle className="h-4 w-4" /> {l.problem}</p>
               )}
               <div className="mt-auto flex items-center justify-between pt-3">
-                <div className="flex h-10 items-center rounded-full border border-beige bg-white">
+                <div className="flex h-10 items-center rounded-full border border-beige bg-card">
                   <button type="button" onClick={() => setQuantity(l.productId, l.variantId, l.quantity - 1)} className="flex h-10 w-10 items-center justify-center" aria-label={`Decrease quantity of ${l.name}`}>
                     <Minus className="h-3.5 w-3.5" />
                   </button>

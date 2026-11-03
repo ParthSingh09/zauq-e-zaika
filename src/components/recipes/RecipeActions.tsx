@@ -52,7 +52,7 @@ export function RecipeActions({ recipeId, slug, title }: { recipeId: string; slu
   const btn = "btn-outline btn-sm h-10 px-4";
   return (
     <div className="flex flex-wrap gap-2" data-no-print>
-      <button type="button" onClick={onSave} disabled={pending} aria-pressed={saved} className={cn(btn, saved && "border-spice-deep bg-spice-deep text-white hover:bg-spice-deep")}>
+      <button type="button" onClick={onSave} disabled={pending} aria-pressed={saved} className={cn(btn, saved && "border-spice-deep bg-spice-solid text-white hover:bg-spice-solid")}>
         <Heart className={cn("h-4 w-4", saved && "fill-current")} aria-hidden />
         {saved ? "Saved" : "Save"}
       </button>

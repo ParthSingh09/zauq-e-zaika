@@ -5,7 +5,7 @@ export function AnnouncementBar({ announcement }: { announcement: Settings["anno
   if (!announcement.enabled || !announcement.text) return null;
   const external = announcement.linkHref.startsWith("http");
   return (
-    <div className="bg-ink text-ivory">
+    <div className="bg-night text-paper">
       <p className="container-page flex min-h-10 flex-wrap items-center justify-center gap-x-3 py-2 text-center text-[13px] tracking-wide">
         <span>{announcement.text}</span>
         {announcement.linkLabel && announcement.linkHref && (

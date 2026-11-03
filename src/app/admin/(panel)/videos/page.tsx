@@ -34,7 +34,7 @@ export default async function AdminVideos() {
         <div className="space-y-3 lg:col-span-3">
           {videos.length === 0 && <Panel><p className="py-8 text-center text-muted">No videos yet. Paste a YouTube link to add your first video.</p></Panel>}
           {videos.map((v) => (
-            <div key={v.id} className="flex gap-4 rounded-2xl border border-line bg-white p-3">
+            <div key={v.id} className="flex gap-4 rounded-2xl border border-line bg-card p-3">
               <a href={youtubeWatchUrl(v.youtubeId)} target="_blank" rel="noopener noreferrer" className="relative aspect-video w-36 shrink-0 overflow-hidden rounded-lg bg-ink">
                 <Image src={youtubeThumb(v.youtubeId)} alt="" fill sizes="144px" className="object-cover" />
               </a>

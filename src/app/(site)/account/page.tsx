@@ -46,7 +46,7 @@ export default async function AccountPage() {
         {orders.length === 0 ? (
           <p className="rounded-2xl border border-dashed border-beige bg-cream/50 p-8 text-center text-muted">You haven’t placed any orders yet. <Link href="/shop" className="font-semibold text-spice-deep underline">Visit the shop</Link></p>
         ) : (
-          <div className="overflow-x-auto rounded-2xl border border-line bg-white">
+          <div className="overflow-x-auto rounded-2xl border border-line bg-card">
             <table className="w-full min-w-[640px] text-left text-sm">
               <thead className="bg-cream/60 text-xs tracking-wide text-muted uppercase">
                 <tr><th className="px-5 py-3">Order</th><th className="px-5 py-3">Date</th><th className="px-5 py-3">Items</th><th className="px-5 py-3">Total</th><th className="px-5 py-3">Status</th><th className="px-5 py-3">Payment</th></tr>

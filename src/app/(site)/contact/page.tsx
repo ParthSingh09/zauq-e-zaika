@@ -47,7 +47,7 @@ export default async function ContactPage() {
             </a>
           )}
           {rows.length > 0 && (
-            <ul className="space-y-4 rounded-[var(--radius-card)] border border-line bg-white p-6">
+            <ul className="space-y-4 rounded-[var(--radius-card)] border border-line bg-card p-6">
               {rows.map(({ icon: Icon, label, value, href }) => (
                 <li key={label} className="flex gap-4">
                   <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-gold/15 text-gold-deep"><Icon className="h-5 w-5" aria-hidden /></span>
@@ -59,9 +59,9 @@ export default async function ContactPage() {
               ))}
             </ul>
           )}
-          <div className="rounded-[var(--radius-card)] bg-ink p-6 text-ivory">
+          <div className="rounded-[var(--radius-card)] bg-night p-6 text-paper">
             <h2 className="text-2xl">Follow our kitchen</h2>
-            <p className="mt-2 text-sm text-ivory/70">New recipes and behind-the-scenes moments.</p>
+            <p className="mt-2 text-sm text-paper/70">New recipes and behind-the-scenes moments.</p>
             <a href={BRAND.youtube} target="_blank" rel="noopener noreferrer" className="mt-5 flex items-center gap-3 rounded-xl bg-white/5 p-4 ring-1 ring-white/10 hover:bg-white/10">
               <YoutubeIcon className="h-6 w-6 text-[#FF4E45]" />
               <span className="text-sm"><span className="font-semibold">YouTube</span> · {BRAND.youtubeHandle}</span>

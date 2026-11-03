@@ -24,7 +24,7 @@ export function SocialLinks({ social, className }: { social: Settings["social"];
             target="_blank"
             rel="noopener noreferrer"
             aria-label={`Zauq e Zaika on ${label}`}
-            className="flex h-10 w-10 items-center justify-center rounded-full border border-white/15 text-ivory/85 transition hover:border-gold hover:bg-gold hover:text-ink"
+            className="flex h-10 w-10 items-center justify-center rounded-full border border-white/15 text-paper/85 transition hover:border-gold hover:bg-gold hover:text-night"
           >
             <Icon className="h-[18px] w-[18px]" />
           </a>
@@ -61,14 +61,14 @@ export function Footer({ settings }: { settings: Settings }) {
   ];
 
   return (
-    <footer className="relative mt-24 overflow-hidden bg-ink text-ivory">
+    <footer className="relative mt-24 overflow-hidden bg-night text-paper">
       <div className="pointer-events-none absolute -top-40 -right-40 h-96 w-96 rounded-full bg-gold/10 blur-3xl" />
       <div className="container-page relative grid gap-12 py-16 lg:grid-cols-12">
         <div className="lg:col-span-4">
           <Logo tone="light" />
-          <p className="mt-5 max-w-sm text-sm leading-relaxed text-ivory/70">{BRAND.description}</p>
+          <p className="mt-5 max-w-sm text-sm leading-relaxed text-paper/70">{BRAND.description}</p>
           <SocialLinks social={social} className="mt-6 flex flex-wrap gap-2" />
-          <div className="mt-6 space-y-2 text-sm text-ivory/75">
+          <div className="mt-6 space-y-2 text-sm text-paper/75">
             {contact.email && (
               <a href={`mailto:${contact.email}`} className="flex items-center gap-2 hover:text-gold">
                 <Mail className="h-4 w-4" aria-hidden /> {contact.email}
@@ -93,7 +93,7 @@ export function Footer({ settings }: { settings: Settings }) {
               <ul className="space-y-2.5 text-sm">
                 {col.links.map((l) => (
                   <li key={l.href}>
-                    <Link href={l.href} className="text-ivory/75 transition hover:text-ivory">
+                    <Link href={l.href} className="text-paper/75 transition hover:text-paper">
                       {l.label}
                     </Link>
                   </li>
@@ -104,12 +104,12 @@ export function Footer({ settings }: { settings: Settings }) {
         </div>
         <div className="lg:col-span-3">
           <h2 className="font-serif text-2xl">Recipes in your inbox</h2>
-          <p className="mt-2 mb-5 text-sm text-ivory/70">New family recipes and kitchen stories. No spam, unsubscribe anytime.</p>
+          <p className="mt-2 mb-5 text-sm text-paper/70">New family recipes and kitchen stories. No spam, unsubscribe anytime.</p>
           <NewsletterForm tone="dark" />
         </div>
       </div>
       <div className="border-t border-white/10">
-        <div className="container-page flex flex-col items-center justify-between gap-3 py-6 text-xs text-ivory/55 sm:flex-row">
+        <div className="container-page flex flex-col items-center justify-between gap-3 py-6 text-xs text-paper/55 sm:flex-row">
           <p>© {new Date().getFullYear()} {BRAND.name}. All rights reserved.</p>
           <p className="font-serif text-sm text-gold/90 italic">{BRAND.tagline}</p>
         </div>

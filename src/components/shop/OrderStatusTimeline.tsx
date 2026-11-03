@@ -13,7 +13,7 @@ export function OrderStatusTimeline({ status, fulfillment }: { status: Status; f
     <ol className="grid grid-cols-5 gap-2" aria-label="Order progress">
       {flow.map((s, i) => (
         <li key={s} className="flex flex-col items-center text-center" aria-current={i === current ? "step" : undefined}>
-          <span className={cn("flex h-9 w-9 items-center justify-center rounded-full border-2 text-sm font-semibold", i <= current ? "border-ink bg-ink text-ivory" : "border-beige bg-white text-muted")}>
+          <span className={cn("flex h-9 w-9 items-center justify-center rounded-full border-2 text-sm font-semibold", i <= current ? "border-ink bg-ink text-ivory" : "border-beige bg-card text-muted")}>
             {i < current ? <Check className="h-4 w-4" /> : i + 1}
           </span>
           <span className={cn("mt-2 text-[11px] leading-tight sm:text-xs", i <= current ? "font-semibold text-ink" : "text-muted")}>{ORDER_STATUS_LABEL[s]}</span>

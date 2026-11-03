@@ -25,7 +25,7 @@ export function Ingredients({ ingredients, servings }: { ingredients: Ingredient
       <div className="mb-6 flex flex-wrap items-center justify-between gap-4">
         <h2 className="text-3xl text-ink">Ingredients</h2>
         {scalable && (
-          <div className="flex items-center gap-1 rounded-full border border-line bg-white p-1" data-no-print>
+          <div className="flex items-center gap-1 rounded-full border border-line bg-card p-1" data-no-print>
             <button
               type="button"
               onClick={() => setCount((c) => Math.max(1, c - 1))}
@@ -81,7 +81,7 @@ export function Ingredients({ ingredients, servings }: { ingredients: Ingredient
                       aria-hidden
                       className={cn(
                         "mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-md border transition peer-focus-visible:ring-2 peer-focus-visible:ring-spice-deep",
-                        checked ? "border-veg bg-veg text-white" : "border-beige bg-white",
+                        checked ? "border-veg bg-veg text-white" : "border-beige bg-card",
                       )}
                     >
                       {checked && <Check className="h-3.5 w-3.5" />}

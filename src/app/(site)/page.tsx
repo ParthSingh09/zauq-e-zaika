@@ -72,14 +72,14 @@ export default async function HomePage() {
           </div>
 
           <div className="relative lg:col-span-6">
-            <div className="relative mx-auto aspect-[6/7] w-full max-w-[520px] overflow-hidden rounded-t-[999px] rounded-b-[2rem] bg-cream shadow-[var(--shadow-lift)] ring-8 ring-white">
+            <div className="relative mx-auto aspect-[6/7] w-full max-w-[520px] overflow-hidden rounded-t-[999px] rounded-b-[2rem] bg-cream shadow-[var(--shadow-lift)] ring-8 ring-card">
               <Image src={hero.image} alt={hero.imageAlt} fill priority sizes="(min-width: 1024px) 520px, 90vw" className="object-cover" />
             </div>
             <div className="pointer-events-none absolute -top-4 right-2 hidden h-28 w-28 rounded-full border border-dashed border-gold/60 sm:block lg:right-6" />
             {spotlight && (
               <Link
                 href={`/recipes/${spotlight.slug}`}
-                className="group absolute -bottom-6 left-0 flex max-w-[290px] items-center gap-4 rounded-2xl bg-white/95 p-3 pr-5 shadow-[var(--shadow-lift)] ring-1 ring-line backdrop-blur transition hover:-translate-y-1 sm:left-4 lg:-left-6"
+                className="group absolute -bottom-6 left-0 flex max-w-[290px] items-center gap-4 rounded-2xl bg-card/95 p-3 pr-5 shadow-[var(--shadow-lift)] ring-1 ring-line backdrop-blur transition hover:-translate-y-1 sm:left-4 lg:-left-6"
               >
                 <span className="relative h-16 w-16 shrink-0 overflow-hidden rounded-xl bg-cream">
                   {spotlight.image && <Image src={spotlight.image} alt="" fill sizes="64px" className="object-cover" />}
@@ -171,13 +171,13 @@ export default async function HomePage() {
       )}
 
       {/* ───────── Latest YouTube videos ───────── */}
-      <section className="bg-ink py-20 text-ivory sm:py-24" aria-labelledby="videos-heading">
+      <section className="bg-night py-20 text-paper sm:py-24" aria-labelledby="videos-heading">
         <div className="container-page">
           <div className="mb-10 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
             <div className="max-w-2xl">
               <p className="eyebrow mb-3 text-gold">Watch & cook along</p>
               <h2 id="videos-heading" className="text-3xl sm:text-4xl lg:text-[2.75rem]">Latest from Our YouTube Kitchen</h2>
-              <p className="mt-4 text-lg text-ivory/70">Step-by-step cooking videos, straight from our home kitchen.</p>
+              <p className="mt-4 text-lg text-paper/70">Step-by-step cooking videos, straight from our home kitchen.</p>
             </div>
             <a href={BRAND.youtube} target="_blank" rel="noopener noreferrer" className="btn shrink-0 bg-[#CC0000] text-white hover:bg-[#A80000]">
               <YoutubeIcon className="h-4 w-4" /> Subscribe on YouTube
@@ -196,14 +196,14 @@ export default async function HomePage() {
             <div className="grid items-center gap-8 rounded-[var(--radius-card)] border border-white/10 bg-white/5 p-8 sm:p-12 lg:grid-cols-2">
               <div>
                 <h3 className="text-2xl sm:text-3xl">Our video kitchen is warming up</h3>
-                <p className="mt-3 text-ivory/70">
+                <p className="mt-3 text-paper/70">
                   Watch all our recipes on the Zauq e Zaika YouTube channel. Featured videos will appear here soon.
                 </p>
                 <div className="mt-6 flex flex-wrap gap-3">
-                  <a href={BRAND.youtube} target="_blank" rel="noopener noreferrer" className="btn bg-ivory text-ink hover:bg-gold">
+                  <a href={BRAND.youtube} target="_blank" rel="noopener noreferrer" className="btn bg-paper text-night hover:bg-gold">
                     Visit the channel <ArrowRight className="h-4 w-4" />
                   </a>
-                  <Link href="/videos" className="btn border border-white/20 text-ivory hover:bg-white/10">Video library</Link>
+                  <Link href="/videos" className="btn border border-white/20 text-paper hover:bg-white/10">Video library</Link>
                 </div>
               </div>
               <div className="relative aspect-video overflow-hidden rounded-2xl bg-cocoa">
@@ -225,7 +225,7 @@ export default async function HomePage() {
           <div className="relative aspect-[5/4] overflow-hidden rounded-[2rem] bg-cream">
             <Image src={home.philosophyImage} alt="A traditional Indian thali prepared at home" fill sizes="(min-width: 1024px) 45vw, 90vw" className="object-cover" />
           </div>
-          <div className="absolute -right-3 -bottom-6 hidden rounded-2xl bg-spice-deep px-6 py-5 text-white shadow-[var(--shadow-lift)] sm:block">
+          <div className="absolute -right-3 -bottom-6 hidden rounded-2xl bg-spice-solid px-6 py-5 text-white shadow-[var(--shadow-lift)] sm:block">
             <p className="font-serif text-2xl italic">Dil Se ♡</p>
             <p className="text-xs tracking-[0.2em] uppercase opacity-80">Cooked with love</p>
           </div>
@@ -270,7 +270,7 @@ export default async function HomePage() {
           {home.whyChoose.map((item, i) => {
             const Icon = WHY_ICONS[i % WHY_ICONS.length];
             return (
-              <li key={item.title} className="rounded-[var(--radius-card)] border border-line bg-white p-7 transition hover:border-gold/60 hover:shadow-[var(--shadow-soft)]">
+              <li key={item.title} className="rounded-[var(--radius-card)] border border-line bg-card p-7 transition hover:border-gold/60 hover:shadow-[var(--shadow-soft)]">
                 <span className="flex h-12 w-12 items-center justify-center rounded-full bg-gold/15 text-gold-deep">
                   <Icon className="h-6 w-6" aria-hidden />
                 </span>
@@ -319,11 +319,11 @@ export default async function HomePage() {
 
       {/* ───────── Social ───────── */}
       <section className="container-page py-20 sm:py-24" aria-labelledby="social-heading">
-        <div className="grid items-center gap-10 overflow-hidden rounded-[2rem] bg-gradient-to-br from-cocoa to-ink p-8 text-ivory sm:p-12 lg:grid-cols-5">
+        <div className="grid items-center gap-10 overflow-hidden rounded-[2rem] bg-gradient-to-br from-nightsoft to-night p-8 text-paper sm:p-12 lg:grid-cols-5">
           <div className="lg:col-span-3">
             <p className="eyebrow mb-3 text-gold">Join the family</p>
             <h2 id="social-heading" className="text-3xl sm:text-4xl">Follow Zauq e Zaika</h2>
-            <p className="mt-4 max-w-lg text-ivory/75">
+            <p className="mt-4 max-w-lg text-paper/75">
               Behind-the-scenes moments, new recipe drops and festive specials — come say hello on social media.
             </p>
             <SocialLinks social={social} className="mt-8 flex flex-wrap gap-3" />
@@ -332,25 +332,25 @@ export default async function HomePage() {
             <a href={BRAND.youtube} target="_blank" rel="noopener noreferrer" className="group rounded-2xl bg-white/5 p-5 ring-1 ring-white/10 transition hover:bg-white/10">
               <YoutubeIcon className="h-7 w-7 text-[#FF4E45]" />
               <p className="mt-4 text-sm font-semibold">YouTube</p>
-              <p className="text-xs text-ivory/60">{BRAND.youtubeHandle}</p>
+              <p className="text-xs text-paper/60">{BRAND.youtubeHandle}</p>
             </a>
             {social.instagram ? (
               <a href={social.instagram} target="_blank" rel="noopener noreferrer" className="group rounded-2xl bg-white/5 p-5 ring-1 ring-white/10 transition hover:bg-white/10">
                 <InstagramIcon className="h-7 w-7 text-gold" />
                 <p className="mt-4 text-sm font-semibold">Instagram</p>
-                <p className="text-xs text-ivory/60">Daily kitchen stories</p>
+                <p className="text-xs text-paper/60">Daily kitchen stories</p>
               </a>
             ) : wa ? (
               <a href={wa} target="_blank" rel="noopener noreferrer" className="group rounded-2xl bg-white/5 p-5 ring-1 ring-white/10 transition hover:bg-white/10">
                 <MessageCircle className="h-7 w-7 text-gold" />
                 <p className="mt-4 text-sm font-semibold">WhatsApp</p>
-                <p className="text-xs text-ivory/60">Chat with us</p>
+                <p className="text-xs text-paper/60">Chat with us</p>
               </a>
             ) : (
               <Link href="/contact" className="group rounded-2xl bg-white/5 p-5 ring-1 ring-white/10 transition hover:bg-white/10">
                 <MessageCircle className="h-7 w-7 text-gold" />
                 <p className="mt-4 text-sm font-semibold">Say hello</p>
-                <p className="text-xs text-ivory/60">Send us a message</p>
+                <p className="text-xs text-paper/60">Send us a message</p>
               </Link>
             )}
           </div>
@@ -369,7 +369,7 @@ export default async function HomePage() {
 
       {/* ───────── Contact strip ───────── */}
       <section className="container-page pt-20" aria-label="Contact">
-        <div className="flex flex-col items-start justify-between gap-6 rounded-[var(--radius-card)] border border-line bg-white p-8 sm:flex-row sm:items-center sm:p-10">
+        <div className="flex flex-col items-start justify-between gap-6 rounded-[var(--radius-card)] border border-line bg-card p-8 sm:flex-row sm:items-center sm:p-10">
           <div>
             <h2 className="text-2xl text-ink sm:text-3xl">Questions, orders or collaborations?</h2>
             <p className="mt-2 text-muted">We read every message and reply as soon as we can.</p>

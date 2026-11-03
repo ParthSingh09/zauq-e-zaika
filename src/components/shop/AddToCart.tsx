@@ -60,7 +60,7 @@ export function AddToCart({
       )}
 
       <div className="flex flex-col gap-3 sm:flex-row">
-        <div className="flex h-12 items-center rounded-full border border-beige bg-white">
+        <div className="flex h-12 items-center rounded-full border border-beige bg-card">
           <button type="button" className="flex h-12 w-12 items-center justify-center disabled:opacity-40" onClick={() => setQty((q) => Math.max(1, q - 1))} disabled={disabled || qty <= 1} aria-label="Decrease quantity">
             <Minus className="h-4 w-4" />
           </button>

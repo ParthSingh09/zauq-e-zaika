@@ -27,7 +27,7 @@ export function ReviewForm({ recipeId, slug }: { recipeId: string; slug: string 
 
   return (
     <PendingProvider pending={pending}>
-    <form {...formProps} className="space-y-4 rounded-2xl border border-line bg-white p-6">
+    <form {...formProps} className="space-y-4 rounded-2xl border border-line bg-card p-6">
       <input type="hidden" name="recipeId" value={recipeId} />
       <input type="hidden" name="rating" value={rating || ""} />
       <fieldset>

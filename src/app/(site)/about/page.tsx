@@ -29,7 +29,7 @@ export default async function AboutPage() {
             <p className="mt-6 max-w-lg text-lg leading-relaxed text-muted">{settings.home.philosophyBody}</p>
           </div>
           <div className="relative">
-            <div className="relative mx-auto aspect-[4/5] max-w-md overflow-hidden rounded-t-[999px] rounded-b-[2rem] ring-8 ring-white shadow-[var(--shadow-lift)]">
+            <div className="relative mx-auto aspect-[4/5] max-w-md overflow-hidden rounded-t-[999px] rounded-b-[2rem] ring-8 ring-card shadow-[var(--shadow-lift)]">
               <Image src="/images/placeholders/kheer-puri.svg" alt="Homemade kheer and puri — brand photograph placeholder" fill priority sizes="(min-width:1024px) 28rem, 90vw" className="object-cover" />
             </div>
           </div>
@@ -57,12 +57,12 @@ export default async function AboutPage() {
       </div>
 
       <section className="container-page">
-        <div className="flex flex-col items-center rounded-[2rem] bg-ink px-6 py-16 text-center text-ivory">
+        <div className="flex flex-col items-center rounded-[2rem] bg-night px-6 py-16 text-center text-paper">
           <h2 className="max-w-2xl text-3xl sm:text-4xl">Come cook with us</h2>
-          <p className="mt-4 max-w-lg text-ivory/70">Explore our recipes, watch us cook on YouTube, or bring a little of our kitchen home.</p>
+          <p className="mt-4 max-w-lg text-paper/70">Explore our recipes, watch us cook on YouTube, or bring a little of our kitchen home.</p>
           <div className="mt-8 flex flex-wrap justify-center gap-3">
-            <Link href="/recipes" className="btn bg-ivory text-ink hover:bg-gold">Explore recipes</Link>
-            <a href={BRAND.youtube} target="_blank" rel="noopener noreferrer" className="btn border border-white/25 text-ivory hover:bg-white/10">
+            <Link href="/recipes" className="btn bg-paper text-night hover:bg-gold">Explore recipes</Link>
+            <a href={BRAND.youtube} target="_blank" rel="noopener noreferrer" className="btn border border-white/25 text-paper hover:bg-white/10">
               <YoutubeIcon className="h-4 w-4" /> Watch on YouTube
             </a>
           </div>

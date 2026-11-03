@@ -156,7 +156,7 @@ export default async function RecipePage({ params }: Props) {
             )}
             <dl className="mt-8 grid grid-cols-3 gap-px overflow-hidden rounded-2xl border border-line bg-line sm:grid-cols-5 lg:grid-cols-3 xl:grid-cols-5">
               {meta.map(({ icon: Icon, label, value }) => (
-                <div key={label} className="bg-white px-3 py-4 text-center last:col-span-2 sm:last:col-span-1 lg:last:col-span-2 xl:last:col-span-1">
+                <div key={label} className="bg-card px-3 py-4 text-center last:col-span-2 sm:last:col-span-1 lg:last:col-span-2 xl:last:col-span-1">
                   <Icon className="mx-auto h-4 w-4 text-gold-deep" aria-hidden />
                   <dt className="mt-1.5 text-[11px] font-semibold tracking-[0.14em] text-muted uppercase">{label}</dt>
                   <dd className="mt-0.5 text-sm font-semibold text-ink">{value}</dd>
@@ -245,7 +245,7 @@ export default async function RecipePage({ params }: Props) {
                 </section>
               )}
               {subs.length > 0 && (
-                <section className="rounded-[var(--radius-card)] border border-line bg-white p-6">
+                <section className="rounded-[var(--radius-card)] border border-line bg-card p-6">
                   <h2 className="flex items-center gap-2 text-2xl text-ink">
                     <Replace className="h-5 w-5 text-spice-deep" aria-hidden /> Substitutions
                   </h2>
@@ -264,7 +264,7 @@ export default async function RecipePage({ params }: Props) {
               <h2 id="nutrition-heading" className="text-2xl text-ink">Nutrition (per serving, approximate)</h2>
               <dl className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4">
                 {Object.entries(nutrition).map(([k, v]) => (
-                  <div key={k} className="rounded-xl border border-line bg-white p-4">
+                  <div key={k} className="rounded-xl border border-line bg-card p-4">
                     <dt className="text-xs text-muted capitalize">{k.replace(/Content$/, "").replace(/([A-Z])/g, " $1")}</dt>
                     <dd className="mt-1 font-semibold text-ink">{v}</dd>
                   </div>

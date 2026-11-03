@@ -17,7 +17,7 @@ export function AdminHeader({ title, description, actions, back }: { title: stri
 
 export function Panel({ title, description, children, className }: { title?: string; description?: string; children: ReactNode; className?: string }) {
   return (
-    <section className={cn("rounded-2xl border border-line bg-white p-5 sm:p-6", className)}>
+    <section className={cn("rounded-2xl border border-line bg-card p-5 sm:p-6", className)}>
       {title && <h2 className="font-sans text-base font-semibold text-ink">{title}</h2>}
       {description && <p className="mt-0.5 text-sm text-muted">{description}</p>}
       <div className={cn(title && "mt-5")}>{children}</div>
@@ -39,7 +39,7 @@ export function Badge({ tone = "gray", children }: { tone?: keyof typeof tones; 
 
 export function Table({ children, minWidth = 720 }: { children: ReactNode; minWidth?: number }) {
   return (
-    <div className="overflow-x-auto rounded-2xl border border-line bg-white">
+    <div className="overflow-x-auto rounded-2xl border border-line bg-card">
       <table className="w-full text-left text-sm" style={{ minWidth }}>{children}</table>
     </div>
   );

@@ -40,7 +40,7 @@ export default async function OrderPage({ params, searchParams }: { params: Prom
           <p className="mt-3 text-lg text-muted">Your order has been received. We’ll be in touch to confirm the details.</p>
         </div>
       )}
-      <div className="rounded-[var(--radius-card)] border border-line bg-white p-6 sm:p-10">
+      <div className="rounded-[var(--radius-card)] border border-line bg-card p-6 sm:p-10">
         <div className="flex flex-wrap items-start justify-between gap-4">
           <div>
             <p className="eyebrow">Order</p>

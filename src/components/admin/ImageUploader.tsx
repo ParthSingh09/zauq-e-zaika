@@ -77,7 +77,7 @@ export function ImageUploader({
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={u} alt="" className="h-full w-full object-cover" />
             {multiple && i === 0 && <span className="absolute bottom-1 left-1 rounded bg-ink/80 px-1.5 text-[10px] text-ivory">Main</span>}
-            <button type="button" onClick={() => setUrls((all) => all.filter((_, j) => j !== i))} className="absolute top-1 right-1 rounded-full bg-ivory/90 p-1 text-ink shadow hover:bg-white" aria-label="Remove image">
+            <button type="button" onClick={() => setUrls((all) => all.filter((_, j) => j !== i))} className="absolute top-1 right-1 rounded-full bg-ivory/90 p-1 text-ink shadow hover:bg-card" aria-label="Remove image">
               <X className="h-3.5 w-3.5" />
             </button>
             {multiple && i > 0 && (

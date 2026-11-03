@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import { Menu, Search, ShoppingBag, User, X } from "lucide-react";
 import { YoutubeIcon } from "@/components/ui/SocialIcons";
 import { Logo } from "./Logo";
+import { ThemeToggle } from "./ThemeToggle";
 import { MAIN_NAV, BRAND } from "@/lib/site";
 import { useCart } from "@/components/shop/CartProvider";
 import { cn } from "@/lib/utils";
@@ -89,13 +90,14 @@ export function Header() {
           <Link href="/recipes#search" className="rounded-full p-2.5 text-ink transition hover:bg-sand" aria-label="Search recipes">
             <Search className="h-5 w-5" />
           </Link>
+          <ThemeToggle />
           <Link href="/account" className="hidden rounded-full p-2.5 text-ink transition hover:bg-sand sm:inline-flex" aria-label="My account">
             <User className="h-5 w-5" />
           </Link>
           <Link href="/cart" className="relative rounded-full p-2.5 text-ink transition hover:bg-sand" aria-label={`Cart, ${count} item${count === 1 ? "" : "s"}`}>
             <ShoppingBag className="h-5 w-5" />
             {ready && count > 0 && (
-              <span className="absolute top-1 right-1 flex h-4 min-w-4 items-center justify-center rounded-full bg-spice-deep px-1 text-[10px] font-bold text-white">
+              <span className="absolute top-1 right-1 flex h-4 min-w-4 items-center justify-center rounded-full bg-spice-solid px-1 text-[10px] font-bold text-white">
                 {count}
               </span>
             )}

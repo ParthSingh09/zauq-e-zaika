@@ -22,10 +22,10 @@ export function NewsletterForm({ tone = "light" }: { tone?: "light" | "dark" }) 
           aria-invalid={state.errors?.email ? true : undefined}
           className={cn(
             "field flex-1 rounded-full",
-            tone === "dark" && "border-white/15 bg-white/10 text-ivory placeholder:text-ivory/60 focus:bg-white/15",
+            tone === "dark" && "border-white/15 bg-white/10 text-paper placeholder:text-paper/60 focus:bg-white/15",
           )}
         />
-        <SubmitButton className={cn(tone === "dark" && "bg-gold text-ink hover:bg-[#e2b061]")} pendingLabel="Subscribing…">
+        <SubmitButton className={cn(tone === "dark" && "bg-gold text-night hover:bg-[#e2b061]")} pendingLabel="Subscribing…">
           Subscribe
         </SubmitButton>
       </div>

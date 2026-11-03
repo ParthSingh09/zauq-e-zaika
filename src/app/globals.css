@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
+/* `dark:` utilities follow the data-theme attribute set before first paint (see layout.tsx). */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
 /* ─────────────── Zauq e Zaika design tokens ─────────────── */
 @theme {
   --color-ivory: #fffdf8;
@@ -10,12 +13,19 @@
   --color-cocoa: #5a3d2e;
   --color-muted: #78665a;
   --color-gold: #d6a04a;
-  --color-gold-deep: #94681f;
+  --color-gold-deep: #86591a;
   --color-spice: #c76b35;
   --color-spice-deep: #a5522a;
   --color-veg: #2f7d32;
   --color-nonveg: #a3301e;
   --color-line: #eadcc6;
+  --color-card: #ffffff;       /* raised surfaces: cards, inputs */
+  --color-admin: #fbf8f2;      /* admin page background */
+  --color-spice-solid: #a5522a; /* backgrounds that carry white text */
+  /* Always-dark sections (footer, video band, admin sidebar) keep these in both themes */
+  --color-night: #1e1511;
+  --color-nightsoft: #5a3d2e;
+  --color-paper: #fffdf8;
 
   --font-serif: var(--font-fraunces), "Georgia", serif;
   --font-sans: var(--font-dm-sans), ui-sans-serif, system-ui, sans-serif;
@@ -29,6 +39,72 @@
     from { opacity: 0; transform: translateY(14px); }
     to { opacity: 1; transform: none; }
   }
+}
+
+
+/* ─────────────── Dark theme ───────────────
+   Applied when data-theme="dark" (user choice / system preference resolved before paint),
+   with a pure-CSS fallback to the system preference if JavaScript is unavailable. */
+:root[data-theme="dark"] {
+  --color-ivory: #14100c;
+  --color-cream: #1c1611;
+  --color-sand: #261e17;
+  --color-beige: #3d3126;
+  --color-ink: #f4ebdd;
+  --color-cocoa: #dccdb8;
+  --color-muted: #a99886;
+  --color-gold-deep: #e2b466;
+  --color-spice: #e0824a;
+  --color-spice-deep: #ee9a66;
+  --color-veg: #7cc47f;
+  --color-nonveg: #f0806b;
+  --color-line: #33291f;
+  --color-card: #1f1913;
+  --color-admin: #0f0b08;
+  --shadow-soft: 0 1px 2px rgb(0 0 0 / 0.3), 0 8px 24px -8px rgb(0 0 0 / 0.5);
+  --shadow-lift: 0 2px 4px rgb(0 0 0 / 0.35), 0 18px 40px -12px rgb(0 0 0 / 0.65);
+  color-scheme: dark;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not([data-theme="dark"]) {
+  --color-ivory: #14100c;
+  --color-cream: #1c1611;
+  --color-sand: #261e17;
+  --color-beige: #3d3126;
+  --color-ink: #f4ebdd;
+  --color-cocoa: #dccdb8;
+  --color-muted: #a99886;
+  --color-gold-deep: #e2b466;
+  --color-spice: #e0824a;
+  --color-spice-deep: #ee9a66;
+  --color-veg: #7cc47f;
+  --color-nonveg: #f0806b;
+  --color-line: #33291f;
+  --color-card: #1f1913;
+  --color-admin: #0f0b08;
+  --shadow-soft: 0 1px 2px rgb(0 0 0 / 0.3), 0 8px 24px -8px rgb(0 0 0 / 0.5);
+  --shadow-lift: 0 2px 4px rgb(0 0 0 / 0.35), 0 18px 40px -12px rgb(0 0 0 / 0.65);
+  color-scheme: dark;
+}
+}
+/* Always print on white, whatever the theme */
+@media print {
+  :root, :root[data-theme="dark"] {
+  --color-ivory: #fffdf8;
+  --color-cream: #f7f0e5;
+  --color-sand: #efe4d2;
+  --color-beige: #e4d3ba;
+  --color-ink: #39271e;
+  --color-cocoa: #5a3d2e;
+  --color-muted: #78665a;
+  --color-gold-deep: #86591a;
+  --color-spice-deep: #a5522a;
+  --color-veg: #2f7d32;
+  --color-nonveg: #a3301e;
+  --color-line: #eadcc6;
+  --color-card: #ffffff;
+  color-scheme: light;
+}
 }
 
 @layer base {
@@ -72,7 +148,7 @@
     transition-all duration-300 disabled:cursor-not-allowed disabled:opacity-50 select-none;
 }
 @utility chip {
-  @apply inline-flex items-center gap-1.5 rounded-full border border-line bg-white px-3.5 py-1.5 text-sm text-cocoa
+  @apply inline-flex items-center gap-1.5 rounded-full border border-line bg-card px-3.5 py-1.5 text-sm text-cocoa
     transition hover:border-gold hover:text-ink;
 }
 
@@ -84,18 +160,18 @@
   }
 
   .btn-primary { @apply btn bg-ink text-ivory hover:bg-cocoa hover:shadow-lift; }
-  .btn-accent { @apply btn bg-spice-deep text-white hover:bg-[#8f4522] hover:shadow-lift; }
+  .btn-accent { @apply btn bg-spice-solid text-white hover:bg-[#8f4522] hover:shadow-lift; }
   .btn-outline { @apply btn border border-ink/25 text-ink hover:border-ink hover:bg-ink hover:text-ivory; }
   .btn-ghost { @apply btn px-3 text-ink hover:bg-sand; }
   .btn-sm { @apply px-4 py-2 text-xs; }
 
   .card {
-    @apply rounded-[var(--radius-card)] bg-white shadow-[var(--shadow-soft)] ring-1 ring-line/60;
+    @apply rounded-[var(--radius-card)] bg-card shadow-[var(--shadow-soft)] ring-1 ring-line/60;
   }
 
   .field-label { @apply mb-1.5 block text-sm font-medium text-ink; }
   .field {
-    @apply block w-full rounded-xl border border-beige bg-white px-4 py-2.5 text-[15px] text-ink placeholder:text-muted/70
+    @apply block w-full rounded-xl border border-beige bg-card dark:bg-ivory px-4 py-2.5 text-[15px] text-ink placeholder:text-muted/70
       transition focus:border-gold focus:ring-4 focus:ring-gold/20 focus:outline-none aria-[invalid=true]:border-nonveg;
   }
   .field-hint { @apply mt-1 text-xs text-muted; }
