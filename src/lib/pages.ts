@@ -3,4 +3,4 @@ import { unstable_cache } from "next/cache";
 import { prisma } from "./db";
 
 export const getPage = (slug: string) =>
-  unstable_cache(() => prisma.page.findUnique({ where: { slug } }), ["page", slug], { tags: [`page:${slug}`, "pages"], revalidate: 3600 })();
+  unstable_cache(() => prisma.page.findUnique({ where: { slug } }), ["page", slug, "v2"], { tags: [`page:${slug}`, "pages"], revalidate: 3600 })();
