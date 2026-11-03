@@ -1,16 +1,15 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, ChefHat, HeartHandshake, Leaf, Sparkles, Quote, MessageCircle } from "lucide-react";
+import { ArrowRight, ChefHat, HeartHandshake, Leaf, Sparkles, Quote } from "lucide-react";
 import { getSettings, whatsappLink } from "@/lib/settings";
 import { prisma } from "@/lib/db";
-import { getCategoriesWithCounts, getFeaturedProducts, getFeaturedRecipes, getPopularRecipes, getVideos } from "@/lib/queries";
+import { getCategoriesWithCounts, getFeaturedProducts, getFeaturedRecipes, getPopularRecipes } from "@/lib/queries";
 import { RecipeCard } from "@/components/recipes/RecipeCard";
 import { ProductCard } from "@/components/shop/ProductCard";
-import { VideoPlayer } from "@/components/video/VideoPlayer";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { NewsletterForm } from "@/components/layout/NewsletterForm";
-import { SocialLinks } from "@/components/layout/Footer";
-import { InstagramIcon, YoutubeIcon } from "@/components/ui/SocialIcons";
+import { InstagramIcon } from "@/components/ui/SocialIcons";
+import { LogoMark } from "@/components/layout/Logo";
 import { BRAND } from "@/lib/site";
 import { formatMinutes } from "@/lib/utils";
 import { pageMetadata } from "@/lib/seo";
@@ -25,16 +24,16 @@ export const metadata = {
 const WHY_ICONS = [ChefHat, HeartHandshake, Leaf, Sparkles];
 
 export default async function HomePage() {
-  const [settings, featured, popular, categories, videos, products, testimonials] = await Promise.all([
+  const [settings, featured, popular, categories, products, testimonials] = await Promise.all([
     getSettings(),
     getFeaturedRecipes(3),
     getPopularRecipes(4),
     getCategoriesWithCounts(),
-    getVideos(3),
     getFeaturedProducts(4),
     prisma.testimonial.findMany({ where: { published: true }, orderBy: { sortOrder: "asc" }, take: 3 }),
   ]);
   const { hero, home, shop, contact, social } = settings;
+  const instagramUrl = social.instagram || BRAND.instagram;
   const spotlight = featured[0];
   const wa = whatsappLink(contact.whatsappNumber, contact.whatsappMessage);
 
@@ -57,16 +56,16 @@ export default async function HomePage() {
               </Link>
             </div>
             <a
-              href={BRAND.youtube}
+              href={instagramUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="group mt-10 inline-flex items-center gap-3 text-sm text-muted transition hover:text-ink"
             >
-              <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[#FF0000]/10 text-[#CC0000] transition group-hover:bg-[#CC0000] group-hover:text-white">
-                <YoutubeIcon className="h-5 w-5" />
+              <span className="flex h-10 w-10 items-center justify-center rounded-full bg-spice/15 text-spice-deep transition group-hover:bg-spice-solid group-hover:text-white">
+                <InstagramIcon className="h-5 w-5" />
               </span>
               <span>
-                Cook along on YouTube <span className="font-semibold text-ink">{BRAND.youtubeHandle}</span>
+                Follow us on Instagram <span className="font-semibold text-ink">{BRAND.instagramHandle}</span>
               </span>
             </a>
           </div>
@@ -114,7 +113,7 @@ export default async function HomePage() {
             id="featured-heading"
             eyebrow="From our kitchen"
             title="Featured Recipes"
-            intro="Hand-picked favourites from the Zauq e Zaika family table — tested, trusted and written for home cooks."
+            intro="Hand-picked favourites from the Zauq-e-Zaika kitchen — recipes written for home cooks."
             action={{ href: "/recipes", label: "All recipes" }}
           />
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -170,55 +169,6 @@ export default async function HomePage() {
         </section>
       )}
 
-      {/* ───────── Latest YouTube videos ───────── */}
-      <section className="bg-night py-20 text-paper sm:py-24" aria-labelledby="videos-heading">
-        <div className="container-page">
-          <div className="mb-10 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-            <div className="max-w-2xl">
-              <p className="eyebrow mb-3 text-gold">Watch & cook along</p>
-              <h2 id="videos-heading" className="text-3xl sm:text-4xl lg:text-[2.75rem]">Latest from Our YouTube Kitchen</h2>
-              <p className="mt-4 text-lg text-paper/70">Step-by-step cooking videos, straight from our home kitchen.</p>
-            </div>
-            <a href={BRAND.youtube} target="_blank" rel="noopener noreferrer" className="btn shrink-0 bg-[#CC0000] text-white hover:bg-[#A80000]">
-              <YoutubeIcon className="h-4 w-4" /> Subscribe on YouTube
-            </a>
-          </div>
-          {videos.length > 0 ? (
-            <div className="grid gap-6 lg:grid-cols-3">
-              {videos.map((v) => (
-                <div key={v.id}>
-                  <VideoPlayer id={v.youtubeId} title={v.title} />
-                  <h3 className="mt-4 text-xl">{v.title}</h3>
-                </div>
-              ))}
-            </div>
-          ) : (
-            <div className="grid items-center gap-8 rounded-[var(--radius-card)] border border-white/10 bg-white/5 p-8 sm:p-12 lg:grid-cols-2">
-              <div>
-                <h3 className="text-2xl sm:text-3xl">Our video kitchen is warming up</h3>
-                <p className="mt-3 text-paper/70">
-                  Watch all our recipes on the Zauq e Zaika YouTube channel. Featured videos will appear here soon.
-                </p>
-                <div className="mt-6 flex flex-wrap gap-3">
-                  <a href={BRAND.youtube} target="_blank" rel="noopener noreferrer" className="btn bg-paper text-night hover:bg-gold">
-                    Visit the channel <ArrowRight className="h-4 w-4" />
-                  </a>
-                  <Link href="/videos" className="btn border border-white/20 text-paper hover:bg-white/10">Video library</Link>
-                </div>
-              </div>
-              <div className="relative aspect-video overflow-hidden rounded-2xl bg-cocoa">
-                <Image src="/images/placeholders/kheer-puri.svg" alt="" fill sizes="(min-width:1024px) 40vw, 90vw" className="object-cover opacity-80" />
-                <span className="absolute inset-0 flex items-center justify-center">
-                  <span className="flex h-16 w-16 items-center justify-center rounded-full bg-[#CC0000] text-white shadow-xl">
-                    <YoutubeIcon className="h-7 w-7" />
-                  </span>
-                </span>
-              </div>
-            </div>
-          )}
-        </div>
-      </section>
-
       {/* ───────── Philosophy / About ───────── */}
       <section className="container-page grid items-center gap-12 py-20 sm:py-28 lg:grid-cols-2 lg:gap-20" aria-labelledby="philosophy-heading">
         <div className="relative order-2 lg:order-1">
@@ -226,8 +176,8 @@ export default async function HomePage() {
             <Image src={home.philosophyImage} alt="A traditional Indian thali prepared at home" fill sizes="(min-width: 1024px) 45vw, 90vw" className="object-cover" />
           </div>
           <div className="absolute -right-3 -bottom-6 hidden rounded-2xl bg-spice-solid px-6 py-5 text-white shadow-[var(--shadow-lift)] sm:block">
-            <p className="font-serif text-2xl italic">Dil Se ♡</p>
-            <p className="text-xs tracking-[0.2em] uppercase opacity-80">Cooked with love</p>
+            <p className="font-serif text-2xl italic">With love ♡</p>
+            <p className="text-xs tracking-[0.2em] uppercase opacity-80">Homemade</p>
           </div>
         </div>
         <div className="order-1 lg:order-2">
@@ -246,9 +196,9 @@ export default async function HomePage() {
           <div className="container-page">
             <SectionHeading
               id="shop-heading"
-              eyebrow="The Zauq e Zaika pantry"
+              eyebrow="From our kitchen"
               title="From Our Kitchen to Yours"
-              intro="Homemade sweets, snacks, pickles and meals — prepared in small batches with the same love as our recipes."
+              intro="Discover what is cooking at Zauq-e-Zaika — homemade food, prepared with love."
               action={{ href: "/shop", label: "Visit the shop" }}
             />
             {!shop.checkoutEnabled && shop.notice && (
@@ -265,7 +215,7 @@ export default async function HomePage() {
 
       {/* ───────── Why choose us ───────── */}
       <section className="container-page py-20 sm:py-24" aria-labelledby="why-heading">
-        <SectionHeading id="why-heading" eyebrow="Why Zauq e Zaika" title="Made the Way Home Food Should Be" align="center" />
+        <SectionHeading id="why-heading" eyebrow="Why Zauq-e-Zaika" title="Made the Way Homemade Food Should Be" align="center" />
         <ul className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {home.whyChoose.map((item, i) => {
             const Icon = WHY_ICONS[i % WHY_ICONS.length];
@@ -317,43 +267,30 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* ───────── Social ───────── */}
+      {/* ───────── Instagram ───────── */}
       <section className="container-page py-20 sm:py-24" aria-labelledby="social-heading">
         <div className="grid items-center gap-10 overflow-hidden rounded-[2rem] bg-gradient-to-br from-nightsoft to-night p-8 text-paper sm:p-12 lg:grid-cols-5">
           <div className="lg:col-span-3">
             <p className="eyebrow mb-3 text-gold">Join the family</p>
-            <h2 id="social-heading" className="text-3xl sm:text-4xl">Follow Zauq e Zaika</h2>
+            <h2 id="social-heading" className="text-3xl sm:text-4xl">Follow Us on Instagram</h2>
             <p className="mt-4 max-w-lg text-paper/75">
-              Behind-the-scenes moments, new recipe drops and festive specials — come say hello on social media.
+              Discover our delicious creations, food updates and a little taste of Zauq-e-Zaika.
             </p>
-            <SocialLinks social={social} className="mt-8 flex flex-wrap gap-3" />
-          </div>
-          <div className="grid grid-cols-2 gap-3 lg:col-span-2">
-            <a href={BRAND.youtube} target="_blank" rel="noopener noreferrer" className="group rounded-2xl bg-white/5 p-5 ring-1 ring-white/10 transition hover:bg-white/10">
-              <YoutubeIcon className="h-7 w-7 text-[#FF4E45]" />
-              <p className="mt-4 text-sm font-semibold">YouTube</p>
-              <p className="text-xs text-paper/60">{BRAND.youtubeHandle}</p>
+            <a href={instagramUrl} target="_blank" rel="noopener noreferrer" className="btn mt-8 bg-paper px-7 py-3.5 text-night hover:bg-gold">
+              <InstagramIcon className="h-5 w-5" /> Follow Us on Instagram
             </a>
-            {social.instagram ? (
-              <a href={social.instagram} target="_blank" rel="noopener noreferrer" className="group rounded-2xl bg-white/5 p-5 ring-1 ring-white/10 transition hover:bg-white/10">
-                <InstagramIcon className="h-7 w-7 text-gold" />
-                <p className="mt-4 text-sm font-semibold">Instagram</p>
-                <p className="text-xs text-paper/60">Daily kitchen stories</p>
-              </a>
-            ) : wa ? (
-              <a href={wa} target="_blank" rel="noopener noreferrer" className="group rounded-2xl bg-white/5 p-5 ring-1 ring-white/10 transition hover:bg-white/10">
-                <MessageCircle className="h-7 w-7 text-gold" />
-                <p className="mt-4 text-sm font-semibold">WhatsApp</p>
-                <p className="text-xs text-paper/60">Chat with us</p>
-              </a>
-            ) : (
-              <Link href="/contact" className="group rounded-2xl bg-white/5 p-5 ring-1 ring-white/10 transition hover:bg-white/10">
-                <MessageCircle className="h-7 w-7 text-gold" />
-                <p className="mt-4 text-sm font-semibold">Say hello</p>
-                <p className="text-xs text-paper/60">Send us a message</p>
-              </Link>
-            )}
           </div>
+          <a
+            href={instagramUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={`Open ${BRAND.instagramHandle} on Instagram`}
+            className="group flex flex-col items-center rounded-3xl bg-white/5 p-8 text-center ring-1 ring-white/10 transition hover:bg-white/10 lg:col-span-2"
+          >
+            <LogoMark className="h-28 w-28 ring-4 ring-gold/40 transition group-hover:ring-gold" />
+            <p className="mt-5 font-serif text-2xl">{BRAND.instagramHandle}</p>
+            <p className="mt-1 text-xs tracking-[0.2em] text-paper/60 uppercase">{BRAND.tagline}</p>
+          </a>
         </div>
       </section>
 
@@ -361,8 +298,8 @@ export default async function HomePage() {
       <section className="border-t border-line bg-cream/60" aria-labelledby="newsletter-heading">
         <div className="container-page flex flex-col items-center py-20 text-center">
           <p className="font-serif text-xl text-spice-deep italic">{BRAND.tagline}</p>
-          <h2 id="newsletter-heading" className="mt-3 max-w-2xl text-3xl text-ink sm:text-4xl">Get new family recipes in your inbox</h2>
-          <p className="mt-4 mb-8 max-w-lg text-muted">One thoughtful email when something new comes out of our kitchen. Unsubscribe anytime.</p>
+          <h2 id="newsletter-heading" className="mt-3 max-w-2xl text-3xl text-ink sm:text-4xl">Get updates from our kitchen</h2>
+          <p className="mt-4 mb-8 max-w-lg text-muted">One thoughtful email when there is something new from Zauq-e-Zaika. Unsubscribe anytime.</p>
           <NewsletterForm />
         </div>
       </section>

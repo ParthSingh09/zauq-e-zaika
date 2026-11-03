@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!c) notFound();
   return pageMetadata({
     title: `${c.name} Recipes`,
-    description: c.description || `Homemade ${c.name.toLowerCase()} recipes from Zauq e Zaika.`,
+    description: c.description || `Homemade ${c.name.toLowerCase()} recipes from Zauq-e-Zaika.`,
     path: `/recipes/category/${c.slug}`,
     image: c.image,
   });

@@ -1,8 +1,6 @@
 import type { NextConfig } from "next";
 
-const remotePatterns: NonNullable<NextConfig["images"]>["remotePatterns"] = [
-  { protocol: "https", hostname: "i.ytimg.com" },
-];
+const remotePatterns: NonNullable<NextConfig["images"]>["remotePatterns"] = [];
 
 // Allow images served from Supabase Storage when configured.
 if (process.env.SUPABASE_URL) {

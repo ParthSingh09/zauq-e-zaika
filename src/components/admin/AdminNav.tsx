@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import {
-  LayoutDashboard, BookOpen, Tags, Package, ShoppingCart, Users, Inbox, Video, Star, Quote, Mail, Palette, FileText, Truck, Shield, Menu, X, ExternalLink,
+  LayoutDashboard, BookOpen, Tags, Package, ShoppingCart, Users, Inbox, Star, Quote, Mail, Palette, FileText, Truck, Shield, Menu, X, ExternalLink,
 } from "lucide-react";
 import { LogoMark } from "@/components/layout/Logo";
 import { ThemeToggle } from "@/components/layout/ThemeToggle";
@@ -15,7 +15,6 @@ const GROUPS = [
   { label: "Kitchen", items: [
     { href: "/admin/recipes", label: "Recipes", icon: BookOpen },
     { href: "/admin/categories", label: "Categories", icon: Tags },
-    { href: "/admin/videos", label: "Videos", icon: Video },
     { href: "/admin/reviews", label: "Reviews", icon: Star },
   ] },
   { label: "Shop", items: [
@@ -79,7 +78,7 @@ export function AdminNav({ badges }: { badges: Record<string, number> }) {
       {open && <div className="fixed inset-0 top-14 z-30 overflow-y-auto bg-night lg:hidden">{nav}</div>}
       <aside className="fixed inset-y-0 left-0 hidden w-64 overflow-y-auto bg-night lg:block">
         <Link href="/admin" className="flex items-center gap-2.5 border-b border-white/10 px-6 py-5 font-serif text-xl text-paper">
-          <LogoMark className="h-8 w-8" /> Zauq e Zaika
+          <LogoMark className="h-9 w-9" /> Zauq-e-Zaika
         </Link>
         {nav}
       </aside>

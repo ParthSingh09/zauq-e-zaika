@@ -6,7 +6,6 @@ import { Clock, Flame, Users, ChefHat, Lightbulb, Replace, Timer } from "lucide-
 import { prisma } from "@/lib/db";
 import { getRecipeBySlug, getRelatedRecipes } from "@/lib/queries";
 import { asIngredients, asNutrition, asSteps, asStrings, ingredientLine } from "@/lib/recipe-data";
-import { parseYouTubeId, youtubeEmbedUrl, youtubeThumb, youtubeWatchUrl } from "@/lib/youtube";
 import { formatDate, formatMinutes, isoDuration, siteUrl } from "@/lib/utils";
 import { absoluteUrl, pageMetadata } from "@/lib/seo";
 import { BRAND, DIFFICULTY_LABEL } from "@/lib/site";
@@ -20,7 +19,6 @@ import { RecipeActions } from "@/components/recipes/RecipeActions";
 import { RecipeCard } from "@/components/recipes/RecipeCard";
 import { ReviewForm } from "@/components/recipes/ReviewForm";
 import { Stars } from "@/components/recipes/Stars";
-import { VideoPlayer } from "@/components/video/VideoPlayer";
 
 export const revalidate = 300;
 export const dynamicParams = true;
@@ -59,15 +57,11 @@ export default async function RecipePage({ params }: Props) {
   const tips = asStrings(recipe.tips);
   const subs = asStrings(recipe.substitutions);
   const nutrition = asNutrition(recipe.nutrition);
-  const videoId = parseYouTubeId(recipe.youtubeUrl);
   const total = recipe.prepMinutes + recipe.cookMinutes;
   const reviews = recipe.reviews;
   const ratingCount = reviews.length;
   const ratingAvg = ratingCount ? reviews.reduce((s, r) => s + r.rating, 0) / ratingCount : 0;
-  const [related, linkedVideo] = await Promise.all([
-    getRelatedRecipes(recipe.id, recipe.categoryId),
-    videoId ? prisma.video.findUnique({ where: { youtubeId: videoId } }) : null,
-  ]);
+  const related = await getRelatedRecipes(recipe.id, recipe.categoryId);
 
   // Structured data — only accurate, available fields are included.
   const jsonLd: Record<string, unknown> = {
@@ -99,19 +93,6 @@ export default async function RecipePage({ params }: Props) {
       ? { aggregateRating: { "@type": "AggregateRating", ratingValue: ratingAvg.toFixed(1), ratingCount } }
       : {}),
     ...(nutrition ? { nutrition: { "@type": "NutritionInformation", ...nutrition } } : {}),
-    ...(videoId && linkedVideo?.publishedAt
-      ? {
-          video: {
-            "@type": "VideoObject",
-            name: linkedVideo.title,
-            description: linkedVideo.description || recipe.excerpt,
-            thumbnailUrl: youtubeThumb(videoId),
-            embedUrl: youtubeEmbedUrl(videoId).split("?")[0],
-            contentUrl: youtubeWatchUrl(videoId),
-            uploadDate: linkedVideo.publishedAt.toISOString(),
-          },
-        }
-      : {}),
   };
 
   const meta = [
@@ -200,16 +181,6 @@ export default async function RecipePage({ params }: Props) {
         </aside>
 
         <div className="lg:col-span-8">
-          {videoId && (
-            <section className="mb-14" aria-labelledby="video-heading" data-no-print>
-              <h2 id="video-heading" className="mb-5 text-3xl text-ink">Watch how it’s made</h2>
-              <VideoPlayer id={videoId} title={`${recipe.title} — video recipe`} />
-              <a href={youtubeWatchUrl(videoId)} target="_blank" rel="noopener noreferrer" className="mt-3 inline-block text-sm font-medium text-spice-deep hover:underline">
-                Watch on YouTube →
-              </a>
-            </section>
-          )}
-
           <section aria-labelledby="method-heading">
             <h2 id="method-heading" className="mb-6 text-3xl text-ink">Method</h2>
             <ol className="space-y-8">

@@ -15,7 +15,7 @@ const prisma = new PrismaClient();
 const P = "/images/placeholders";
 
 const SAMPLE_NOTE =
-  "**Sample content:** this recipe is a placeholder written to demonstrate the website. Replace it with the authentic Zauq e Zaika family recipe from the admin dashboard.";
+  "**Sample content:** this recipe is a placeholder written to demonstrate the website. Replace it with the authentic Zauq-e-Zaika family recipe from the admin dashboard.";
 
 const RECIPE_CATEGORIES = [
   { slug: "breakfast", name: "Breakfast", description: "Wholesome starts — parathas, poha, upma and more.", image: `${P}/breakfast.svg` },

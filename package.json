@@ -14,7 +14,8 @@
     "db:deploy": "prisma migrate deploy",
     "db:seed": "prisma db seed",
     "db:studio": "prisma studio",
-    "images:placeholders": "node scripts/generate-placeholders.mjs"
+    "images:placeholders": "node scripts/generate-placeholders.mjs",
+    "db:rebrand": "tsx prisma/rebrand.ts"
   },
   "dependencies": {
     "@prisma/client": "^6.19.3",

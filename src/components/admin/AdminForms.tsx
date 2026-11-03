@@ -1,42 +1,13 @@
 "use client";
 
-import type { DeliveryRegion, Page, Testimonial, Video } from "@prisma/client";
+import type { DeliveryRegion, Page, Testimonial } from "@prisma/client";
 import { ActionForm } from "./ActionForm";
 import { ImageUploader } from "./ImageUploader";
 import { Checkbox } from "./AdminUI";
-import { Field, Select, SubmitButton, TextArea } from "@/components/ui/Form";
-import { createAdmin, saveRegion, savePage, saveSettingsGroup, saveTestimonial, saveVideo } from "@/server/actions/admin/content";
+import { Field, SubmitButton, TextArea } from "@/components/ui/Form";
+import { createAdmin, saveRegion, savePage, saveSettingsGroup, saveTestimonial } from "@/server/actions/admin/content";
 import type { Settings } from "@/lib/settings";
 import { paiseToRupeesString } from "@/lib/money";
-
-// ───────── Videos ─────────
-export function VideoForm({ video, recipes }: { video?: Video; recipes: { id: string; title: string }[] }) {
-  return (
-    <ActionForm action={saveVideo} className="space-y-4" resetOnSuccess={!video}>
-      {(e) => (
-        <>
-          {video && <input type="hidden" name="id" value={video.id} />}
-          <Field label="YouTube video link" name="url" required defaultValue={video ? `https://www.youtube.com/watch?v=${video.youtubeId}` : ""} placeholder="https://www.youtube.com/watch?v=…" error={e.url} hint="Paste the link from YouTube’s Share button. Shorts links work too." />
-          <Field label="Title" name="title" required defaultValue={video?.title} error={e.title} />
-          <TextArea label="Description" name="description" rows={3} defaultValue={video?.description} />
-          <div className="grid gap-4 sm:grid-cols-3">
-            <Field label="Published on YouTube" name="publishedAt" type="date" defaultValue={video?.publishedAt ? video.publishedAt.toISOString().slice(0, 10) : ""} hint="Needed for Google video results." />
-            <Select label="Linked recipe" name="recipeId" defaultValue={video?.recipeId ?? ""}>
-              <option value="">None</option>
-              {recipes.map((r) => <option key={r.id} value={r.id}>{r.title}</option>)}
-            </Select>
-            <Field label="Sort order" name="sortOrder" type="number" min={0} defaultValue={video?.sortOrder ?? 0} />
-          </div>
-          <div className="flex flex-wrap gap-6">
-            <Checkbox name="published" label="Show on website" defaultChecked={video?.published ?? true} />
-            <Checkbox name="featured" label="Featured (shown first)" defaultChecked={video?.featured} />
-          </div>
-          <SubmitButton pendingLabel="Saving…">{video ? "Save video" : "Add video"}</SubmitButton>
-        </>
-      )}
-    </ActionForm>
-  );
-}
 
 // ───────── Testimonials ─────────
 export function TestimonialForm({ t }: { t?: Testimonial }) {
@@ -175,7 +146,7 @@ export function SocialForm({ s }: { s: Settings["social"] }) {
     <ActionForm action={saveSettingsGroup} className="space-y-4">
       <G group="social" />
       <div className="grid gap-4 sm:grid-cols-2">
-        {(["youtube", "instagram", "facebook", "pinterest", "x"] as const).map((k) => (
+        {(["instagram", "facebook", "pinterest", "x"] as const).map((k) => (
           <Field key={k} label={k === "x" ? "X (Twitter)" : k[0].toUpperCase() + k.slice(1)} name={k} defaultValue={s[k]} placeholder="https://…" />
         ))}
       </div>

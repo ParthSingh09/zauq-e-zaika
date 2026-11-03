@@ -21,7 +21,6 @@ export default async function Security() {
     { label: `Razorpay keys${razorpayConfigured() ? (razorpayTestMode() ? " (test mode)" : " (live mode)") : ""}`, ok: razorpayConfigured() },
     { label: "Razorpay webhook secret", ok: Boolean(process.env.RAZORPAY_WEBHOOK_SECRET) },
     { label: "Google sign-in (GOOGLE_CLIENT_ID + GOOGLE_CLIENT_SECRET)", ok: Boolean(process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET) },
-    { label: "YouTube API (optional auto-import)", ok: Boolean(process.env.YOUTUBE_API_KEY && process.env.YOUTUBE_CHANNEL_ID) },
   ];
   return (
     <>

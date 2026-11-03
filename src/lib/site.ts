@@ -1,15 +1,19 @@
 export const BRAND = {
-  name: "Zauq e Zaika",
-  tagline: "Har Zaika, Dil Se ♡",
+  name: "Zauq-e-Zaika",
+  tagline: "Homemade with Love",
+  /** What the business is — used in titles and structured data. */
+  type: "Cloud Kitchen",
+  city: "Lucknow",
+  region: "Uttar Pradesh",
+  country: "IN",
   description:
-    "Authentic homemade Indian recipes, traditional family flavours, cooking videos and homemade food — made with love by Zauq e Zaika.",
-  youtube: "https://www.youtube.com/@ZauqeZaika",
-  youtubeHandle: "@ZauqeZaika",
+    "Zauq-e-Zaika is a cloud kitchen in Lucknow, Uttar Pradesh — authentic Indian flavours, homemade with love.",
+  instagram: "https://www.instagram.com/zauqezaika/",
+  instagramHandle: "@ZauqeZaika",
 } as const;
 
 export const MAIN_NAV = [
   { href: "/recipes", label: "Recipes" },
-  { href: "/videos", label: "Videos" },
   { href: "/shop", label: "Shop" },
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },

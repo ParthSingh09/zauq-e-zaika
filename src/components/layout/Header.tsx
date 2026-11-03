@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { Menu, Search, ShoppingBag, User, X } from "lucide-react";
-import { YoutubeIcon } from "@/components/ui/SocialIcons";
+import { InstagramIcon } from "@/components/ui/SocialIcons";
 import { Logo } from "./Logo";
 import { ThemeToggle } from "./ThemeToggle";
 import { MAIN_NAV, BRAND } from "@/lib/site";
@@ -58,7 +58,7 @@ export function Header() {
       <a href="#main" className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:rounded-lg focus:bg-ink focus:px-4 focus:py-2 focus:text-ivory">
         Skip to content
       </a>
-      <div className="container-page flex h-[72px] items-center justify-between gap-6">
+      <div className="container-page flex h-[72px] items-center justify-between gap-3 sm:gap-6">
         <Logo />
 
         <nav aria-label="Main" className="hidden lg:block">
@@ -87,14 +87,14 @@ export function Header() {
         </nav>
 
         <div className="flex items-center gap-1">
-          <Link href="/recipes#search" className="rounded-full p-2.5 text-ink transition hover:bg-sand" aria-label="Search recipes">
+          <Link href="/recipes#search" className="hidden rounded-full p-2.5 text-ink transition hover:bg-sand sm:inline-flex" aria-label="Search recipes">
             <Search className="h-5 w-5" />
           </Link>
           <ThemeToggle />
           <Link href="/account" className="hidden rounded-full p-2.5 text-ink transition hover:bg-sand sm:inline-flex" aria-label="My account">
             <User className="h-5 w-5" />
           </Link>
-          <Link href="/cart" className="relative rounded-full p-2.5 text-ink transition hover:bg-sand" aria-label={`Cart, ${count} item${count === 1 ? "" : "s"}`}>
+          <Link href="/cart" className="relative rounded-full p-2 sm:p-2.5 text-ink transition hover:bg-sand" aria-label={`Cart, ${count} item${count === 1 ? "" : "s"}`}>
             <ShoppingBag className="h-5 w-5" />
             {ready && count > 0 && (
               <span className="absolute top-1 right-1 flex h-4 min-w-4 items-center justify-center rounded-full bg-spice-solid px-1 text-[10px] font-bold text-white">
@@ -105,7 +105,7 @@ export function Header() {
           <button
             ref={menuButton}
             type="button"
-            className="rounded-full p-2.5 text-ink transition hover:bg-sand lg:hidden"
+            className="rounded-full p-2 text-ink transition hover:bg-sand sm:p-2.5 lg:hidden"
             aria-label="Open menu"
             aria-expanded={open}
             aria-controls="mobile-menu"
@@ -161,8 +161,8 @@ export function Header() {
             </ul>
           </nav>
           <div className="border-t border-line p-5">
-            <a href={BRAND.youtube} target="_blank" rel="noopener noreferrer" tabIndex={open ? 0 : -1} className="btn-accent w-full">
-              <YoutubeIcon className="h-4 w-4" /> Watch on YouTube
+            <a href={BRAND.instagram} target="_blank" rel="noopener noreferrer" tabIndex={open ? 0 : -1} className="btn-accent w-full">
+              <InstagramIcon className="h-4 w-4" /> Follow on Instagram
             </a>
             <p className="mt-4 text-center font-serif text-sm text-muted italic">{BRAND.tagline}</p>
           </div>

@@ -4,12 +4,12 @@ import { pageMetadata } from "@/lib/seo";
 import { BRAND } from "@/lib/site";
 import { ContactForm } from "@/components/layout/ContactForm";
 import { SocialLinks } from "@/components/layout/Footer";
-import { WhatsappIcon, YoutubeIcon } from "@/components/ui/SocialIcons";
+import { InstagramIcon, WhatsappIcon } from "@/components/ui/SocialIcons";
 
 export const revalidate = 3600;
 export const metadata = pageMetadata({
   title: "Contact Us",
-  description: "Get in touch with Zauq e Zaika — questions about recipes, orders, collaborations or just to say hello.",
+  description: "Get in touch with Zauq-e-Zaika, a cloud kitchen in Lucknow — questions, orders, collaborations or just to say hello.",
   path: "/contact",
 });
 
@@ -61,10 +61,10 @@ export default async function ContactPage() {
           )}
           <div className="rounded-[var(--radius-card)] bg-night p-6 text-paper">
             <h2 className="text-2xl">Follow our kitchen</h2>
-            <p className="mt-2 text-sm text-paper/70">New recipes and behind-the-scenes moments.</p>
-            <a href={BRAND.youtube} target="_blank" rel="noopener noreferrer" className="mt-5 flex items-center gap-3 rounded-xl bg-white/5 p-4 ring-1 ring-white/10 hover:bg-white/10">
-              <YoutubeIcon className="h-6 w-6 text-[#FF4E45]" />
-              <span className="text-sm"><span className="font-semibold">YouTube</span> · {BRAND.youtubeHandle}</span>
+            <p className="mt-2 text-sm text-paper/70">Food updates and a little taste of our kitchen.</p>
+            <a href={social.instagram || BRAND.instagram} target="_blank" rel="noopener noreferrer" className="mt-5 flex items-center gap-3 rounded-xl bg-white/5 p-4 ring-1 ring-white/10 hover:bg-white/10">
+              <InstagramIcon className="h-6 w-6 text-gold" />
+              <span className="text-sm"><span className="font-semibold">Instagram</span> · {BRAND.instagramHandle}</span>
             </a>
             <SocialLinks social={social} className="mt-5 flex flex-wrap gap-2" />
           </div>

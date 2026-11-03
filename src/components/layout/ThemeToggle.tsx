@@ -6,7 +6,7 @@ import { Moon, Sun } from "lucide-react";
 const KEY = "zz_theme";
 
 /** Toggles light/dark. The initial theme is resolved by an inline script before first paint (no flash). */
-export function ThemeToggle({ className = "rounded-full p-2.5 text-ink transition hover:bg-sand" }: { className?: string }) {
+export function ThemeToggle({ className = "rounded-full p-2 text-ink transition hover:bg-sand sm:p-2.5" }: { className?: string }) {
   const [dark, setDark] = useState<boolean | null>(null);
   useEffect(() => setDark(document.documentElement.dataset.theme === "dark"), []);
 

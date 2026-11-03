@@ -6,7 +6,7 @@ import { logout } from "@/server/actions/account";
 import { ThemeToggle } from "@/components/layout/ThemeToggle";
 import { AdminNav } from "@/components/admin/AdminNav";
 
-export const metadata: Metadata = { title: { default: "Admin", template: "%s · Admin · Zauq e Zaika" }, robots: { index: false, follow: false } };
+export const metadata: Metadata = { title: { default: "Admin", template: "%s · Admin · Zauq-e-Zaika" }, robots: { index: false, follow: false } };
 export const dynamic = "force-dynamic";
 
 export default async function AdminLayout({ children }: { children: React.ReactNode }) {

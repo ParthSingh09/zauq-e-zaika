@@ -170,17 +170,6 @@ export async function getCategoriesWithCounts() {
   });
 }
 
-// ───────────── Videos ─────────────
-
-export async function getVideos(take?: number) {
-  return prisma.video.findMany({
-    where: { published: true },
-    orderBy: [{ featured: "desc" }, { sortOrder: "asc" }, { publishedAt: "desc" }, { createdAt: "desc" }],
-    take,
-    include: { recipe: { select: { slug: true, title: true, published: true } } },
-  });
-}
-
 // ───────────── Products ─────────────
 
 export const productCardSelect = {

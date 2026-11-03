@@ -7,26 +7,26 @@ export const PAGES: { slug: string; title: string; body: string }[] = [
     title: "More Than Food. It’s a Feeling.",
     body: `## Our story
 
-[YOUR STORY — Tell visitors how Zauq e Zaika began: who taught you to cook, the kitchen you grew up in, and why you decided to share your recipes with the world. This section is intentionally left for you to write in your own words.]
+[YOUR STORY — Tell visitors how Zauq-e-Zaika began in Lucknow: who taught you to cook, the kitchen you grew up in, and why you started a cloud kitchen. This section is intentionally left for you to write in your own words.]
 
 ## Our cooking philosophy
 
-At Zauq e Zaika, we believe the best food is cooked slowly, honestly and with love. Our recipes follow traditional methods — the kind passed from one generation to the next — written down clearly so anyone can recreate them at home.
+Zauq-e-Zaika is a cloud kitchen in Lucknow, Uttar Pradesh. We believe the best food is cooked patiently, honestly and with love — the way it is cooked at home.
 
-We cook with everyday ingredients, measure with care, and taste as we go. No shortcuts that compromise flavour, and no complicated techniques that keep good food out of reach.
+We cook with care, taste as we go, and never compromise on flavour.
 
 ## What we value
 
 - **Authenticity** — traditional recipes, cooked the way they are meant to be.
-- **Honesty** — simple, wholesome ingredients and clear, tested instructions.
+- **Honesty** — good ingredients, prepared with care and respect.
 - **Warmth** — food is how families show love, and everyone is welcome at our table.
-- **Sharing** — recipes become richer when they are passed on.
+- **Sharing** — food tastes better when it is shared.
 
 ## Our passion for Indian food
 
-From festive sweets to everyday dal, Indian food is a celebration of regions, seasons and memories. Through our recipes, videos and homemade food, we hope to bring a little of that warmth to your kitchen.
+From festive sweets to everyday dal, Indian food is a celebration of regions, seasons and memories. Through our homemade food, we hope to bring a little of that warmth to your table.
 
-*Har Zaika, Dil Se ♡*`,
+*Homemade with Love*`,
   },
   {
     slug: "faq",
@@ -34,7 +34,7 @@ From festive sweets to everyday dal, Indian food is a celebration of regions, se
     body: `## Recipes
 
 ### Are your recipes tested?
-Every recipe is cooked in our home kitchen before it is published. Results can vary with ingredients, cookware and altitude — taste and adjust as you go.
+Every recipe is cooked in our kitchen before it is published. Results can vary with ingredients, cookware and altitude — taste and adjust as you go.
 
 ### Can I adjust the number of servings?
 Yes. On recipes that support it, use the servings control above the ingredients list and the quantities update automatically.
@@ -56,6 +56,14 @@ We only deliver to areas listed at checkout. If your postal code is not accepted
 ### How long does homemade food stay fresh?
 Shelf life is listed on each product page. [Add storage guidance.]
 
+## About us
+
+### Where are you based?
+Zauq-e-Zaika is a cloud kitchen based in Lucknow, Uttar Pradesh. [Add pickup, delivery and operating-hours details.]
+
+### Where can I follow you?
+On Instagram: [@ZauqeZaika](https://www.instagram.com/zauqezaika/).
+
 ## Contact
 
 ### How can I reach you?
@@ -66,7 +74,7 @@ Use our [contact page](/contact) — we usually reply within [RESPONSE TIME].`,
     title: "Privacy Policy",
     body: `**Last updated:** [DATE]
 
-This Privacy Policy explains how [LEGAL BUSINESS NAME] ("Zauq e Zaika", "we", "us") collects, uses and protects your personal information when you use [WEBSITE URL].
+This Privacy Policy explains how [LEGAL BUSINESS NAME] ("Zauq-e-Zaika", "we", "us") collects, uses and protects your personal information when you use [WEBSITE URL].
 
 ## Information we collect
 
@@ -110,7 +118,7 @@ These terms govern your use of [WEBSITE URL], operated by [LEGAL BUSINESS NAME].
 
 ## Using our website
 
-Recipes, photographs and videos on this website are the property of Zauq e Zaika unless stated otherwise. You may cook from them and share links, but may not republish them without permission.
+Recipes, photographs and other content on this website are the property of Zauq-e-Zaika unless stated otherwise. You may cook from them and share links, but may not republish them without permission.
 
 ## Orders
 
@@ -209,9 +217,9 @@ These cannot be switched off because the website would not function without them
 
 We do not currently use analytics or advertising cookies. If we add them in future (for example to understand which recipes are most helpful, or to show advertisements), we will update this page and ask for your consent where required.
 
-## Embedded videos
+## Social media
 
-Our cooking videos are hosted by YouTube. Videos load only when you press play, using YouTube’s privacy-enhanced mode. YouTube’s own policies then apply.
+This website links to our Instagram profile (@ZauqeZaika). Instagram is a separate service with its own privacy and cookie practices, which apply once you leave our website.
 
 ## Managing cookies
 

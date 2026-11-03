@@ -77,7 +77,7 @@ export function CheckoutForm({ options, defaults }: { options: Options; defaults
         key: d.keyId,
         amount: Number(d.amount),
         currency: "INR",
-        name: "Zauq e Zaika",
+        name: "Zauq-e-Zaika",
         description: `Order ${d.orderNumber}`,
         order_id: d.razorpayOrderId,
         prefill: { name: d.name, email: d.email, contact: d.phone },

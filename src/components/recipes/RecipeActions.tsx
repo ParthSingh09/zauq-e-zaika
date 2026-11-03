@@ -37,7 +37,7 @@ export function RecipeActions({ recipeId, slug, title }: { recipeId: string; slu
     const url = window.location.href.split("#")[0];
     if (navigator.share) {
       try {
-        await navigator.share({ title, text: `${title} — a recipe from Zauq e Zaika`, url });
+        await navigator.share({ title, text: `${title} — a recipe from Zauq-e-Zaika`, url });
       } catch {}
       return;
     }

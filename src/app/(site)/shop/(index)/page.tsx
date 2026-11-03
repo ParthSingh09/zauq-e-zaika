@@ -11,7 +11,7 @@ import { cn } from "@/lib/utils";
 
 export const metadata = pageMetadata({
   title: "Shop Homemade Food",
-  description: "Homemade Indian sweets, snacks, pickles, masalas and meals from the Zauq e Zaika kitchen — prepared in small batches with love.",
+  description: "Homemade Indian food from the Zauq-e-Zaika cloud kitchen in Lucknow — made with love.",
   path: "/shop",
 });
 
@@ -36,10 +36,10 @@ export default async function ShopPage({ searchParams }: { searchParams: SP }) {
     <>
       <section className="border-b border-line bg-cream/60">
         <div className="container-page py-14 text-center sm:py-20">
-          <p className="eyebrow mb-3">The Zauq e Zaika pantry</p>
+          <p className="eyebrow mb-3">The Zauq-e-Zaika menu</p>
           <h1 className="text-4xl text-ink sm:text-5xl lg:text-6xl">Homemade, From Our Kitchen</h1>
           <p className="mx-auto mt-5 max-w-2xl text-lg text-muted">
-            Sweets, snacks, pickles, masalas and meals — prepared in small batches, the traditional way.
+            Homemade food from our Lucknow cloud kitchen — made with love, the traditional way.
           </p>
         </div>
       </section>

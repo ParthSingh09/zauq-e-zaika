@@ -1,4 +1,4 @@
-// Zauq e Zaika — database schema (PostgreSQL)
+// Zauq-e-Zaika — database schema (PostgreSQL)
 // Money is stored as integer paise (₹1 = 100 paise) to avoid floating point errors.
 
 generator client {
@@ -120,7 +120,6 @@ model Recipe {
   substitutions  Json            @default("[]")
   /// { calories?: string, protein?: string, ... } — only fill with reliable data
   nutrition      Json?
-  youtubeUrl     String?
   tags           String[]        @default([])
   seoTitle       String?
   seoDescription String?
@@ -137,7 +136,6 @@ model Recipe {
   category       RecipeCategory? @relation(fields: [categoryId], references: [id], onDelete: SetNull)
   reviews        RecipeReview[]
   savedBy        SavedRecipe[]
-  videos         Video[]
 
   @@index([published, publishedAt])
   @@index([categoryId])
@@ -165,22 +163,6 @@ model SavedRecipe {
   createdAt DateTime @default(now())
 
   @@id([userId, recipeId])
-}
-
-// ───────────────────────── Videos ─────────────────────────
-
-model Video {
-  id          String    @id @default(cuid())
-  youtubeId   String    @unique
-  title       String
-  description String    @default("")
-  publishedAt DateTime?
-  featured    Boolean   @default(false)
-  published   Boolean   @default(true)
-  sortOrder   Int       @default(0)
-  recipeId    String?
-  recipe      Recipe?   @relation(fields: [recipeId], references: [id], onDelete: SetNull)
-  createdAt   DateTime  @default(now())
 }
 
 // ───────────────────────── Shop ─────────────────────────

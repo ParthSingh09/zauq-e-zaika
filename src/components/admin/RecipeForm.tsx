@@ -109,9 +109,6 @@ export function RecipeForm({ recipe, categories }: { recipe?: Recipe; categories
               </div>
             </Panel>
 
-            <Panel title="Video">
-              <Field label="YouTube link" name="youtubeUrl" defaultValue={recipe?.youtubeUrl ?? ""} placeholder="https://www.youtube.com/watch?v=…" error={e.youtubeUrl} hint="Embeds the video on the recipe page." />
-            </Panel>
           </div>
         </>
       )}

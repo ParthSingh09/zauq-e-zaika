@@ -6,7 +6,6 @@ import { prisma } from "@/lib/db";
 import { hashPassword, requireAdmin } from "@/lib/auth";
 import { DEFAULT_SETTINGS, getSettings, saveSettings, type Settings } from "@/lib/settings";
 import { rupeesToPaise } from "@/lib/money";
-import { parseYouTubeId } from "@/lib/youtube";
 import { bool, int, optStr, refreshPages, refreshSettings, refreshSite, safeUrl, str } from "../../form";
 import type { ActionState } from "../../action-state";
 
@@ -69,7 +68,7 @@ export async function saveSettingsGroup(_: ActionState, f: FormData): Promise<Ac
     }
     case "social": {
       const u = (k: string) => (/^https:\/\//.test(str(f, k, 300)) ? str(f, k, 300) : "");
-      await saveSettings("social", { youtube: u("youtube"), instagram: u("instagram"), facebook: u("facebook"), pinterest: u("pinterest"), x: u("x") });
+      await saveSettings("social", { instagram: u("instagram"), facebook: u("facebook"), pinterest: u("pinterest"), x: u("x") });
       break;
     }
     case "shop":
@@ -108,71 +107,6 @@ export async function savePage(_: ActionState, f: FormData): Promise<ActionState
   await prisma.page.update({ where: { slug }, data: { title, body, needsReview: bool(f, "needsReview") } });
   refreshPages();
   return { ok: true, message: "Page saved." };
-}
-
-// ───────── Videos ─────────
-
-export async function saveVideo(_: ActionState, f: FormData): Promise<ActionState> {
-  await requireAdmin();
-  const id = str(f, "id");
-  const youtubeId = parseYouTubeId(str(f, "url", 300));
-  if (!youtubeId) return { ok: false, message: "Enter a valid YouTube video link.", errors: { url: "Invalid YouTube link." } };
-  const title = str(f, "title", 200);
-  if (title.length < 2) return { ok: false, message: "Please add a title.", errors: { title: "Required." } };
-  const dateRaw = str(f, "publishedAt");
-  const recipeId = str(f, "recipeId") || null;
-  const data = {
-    youtubeId,
-    title,
-    description: str(f, "description", 3000),
-    publishedAt: dateRaw && !Number.isNaN(Date.parse(dateRaw)) ? new Date(dateRaw) : null,
-    featured: bool(f, "featured"),
-    published: bool(f, "published"),
-    sortOrder: int(f, "sortOrder", 0, 0, 9999),
-    recipeId: recipeId && (await prisma.recipe.findUnique({ where: { id: recipeId } })) ? recipeId : null,
-  };
-  try {
-    if (id) await prisma.video.update({ where: { id }, data });
-    else await prisma.video.create({ data });
-  } catch {
-    return { ok: false, message: "This video has already been added.", errors: { url: "Already added." } };
-  }
-  refreshSite();
-  return { ok: true, message: id ? "Video saved." : "Video added.", data: { redirect: "/admin/videos" } };
-}
-
-export async function deleteVideo(id: string) {
-  await requireAdmin();
-  await prisma.video.delete({ where: { id } }).catch(() => null);
-  refreshSite();
-  return { ok: true, message: "Video removed." };
-}
-
-/** Optional: imports the latest uploads using the YouTube Data API (requires YOUTUBE_API_KEY + YOUTUBE_CHANNEL_ID). */
-export async function importLatestVideos() {
-  await requireAdmin();
-  const key = process.env.YOUTUBE_API_KEY;
-  const channel = process.env.YOUTUBE_CHANNEL_ID;
-  if (!key || !channel) return { ok: false, message: "YouTube API is not configured (YOUTUBE_API_KEY, YOUTUBE_CHANNEL_ID)." };
-  const uploads = channel.startsWith("UC") ? `UU${channel.slice(2)}` : channel;
-  const res = await fetch(
-    `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=12&playlistId=${encodeURIComponent(uploads)}&key=${encodeURIComponent(key)}`,
-    { cache: "no-store" },
-  );
-  if (!res.ok) return { ok: false, message: `YouTube API error (${res.status}). Check your API key and channel ID.` };
-  const body = (await res.json()) as { items?: { snippet: { title: string; description: string; publishedAt: string; resourceId: { videoId: string } } }[] };
-  let added = 0;
-  for (const item of body.items ?? []) {
-    const vid = item.snippet.resourceId.videoId;
-    const exists = await prisma.video.findUnique({ where: { youtubeId: vid } });
-    if (exists) continue;
-    await prisma.video.create({
-      data: { youtubeId: vid, title: item.snippet.title.slice(0, 200), description: item.snippet.description.slice(0, 3000), publishedAt: new Date(item.snippet.publishedAt), published: true },
-    });
-    added++;
-  }
-  refreshSite();
-  return { ok: true, message: added ? `Imported ${added} new video${added > 1 ? "s" : ""}.` : "No new videos found." };
 }
 
 // ───────── Testimonials ─────────

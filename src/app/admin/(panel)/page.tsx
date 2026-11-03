@@ -58,7 +58,7 @@ export default async function AdminDashboard() {
     <>
       <AdminHeader
         title="Dashboard"
-        description="Everything happening in the Zauq e Zaika kitchen."
+        description="Everything happening in the Zauq-e-Zaika kitchen."
         actions={
           <>
             <Link href="/admin/recipes/new" className="btn-primary btn-sm"><Plus className="h-4 w-4" /> New recipe</Link>

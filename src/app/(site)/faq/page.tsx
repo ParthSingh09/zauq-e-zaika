@@ -8,7 +8,7 @@ import { JsonLd } from "@/components/ui/JsonLd";
 export const revalidate = 3600;
 export const metadata = pageMetadata({
   title: "Frequently Asked Questions",
-  description: "Answers to common questions about Zauq e Zaika recipes, orders, delivery and more.",
+  description: "Answers to common questions about Zauq-e-Zaika food, recipes, orders, delivery and more.",
   path: "/faq",
 });
 

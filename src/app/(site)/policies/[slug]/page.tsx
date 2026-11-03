@@ -21,7 +21,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const p = POLICY_PAGES.find((x) => x.slug === slug);
   if (!p) notFound();
-  return pageMetadata({ title: p.label, description: `${p.label} for Zauq e Zaika.`, path: `/policies/${slug}` });
+  return pageMetadata({ title: p.label, description: `${p.label} for Zauq-e-Zaika.`, path: `/policies/${slug}` });
 }
 
 export default async function PolicyPage({ params }: Props) {

@@ -5,7 +5,6 @@ import { Prisma, type Diet, type Difficulty } from "@prisma/client";
 import { prisma } from "@/lib/db";
 import { requireAdmin } from "@/lib/auth";
 import { slugify } from "@/lib/utils";
-import { parseYouTubeId } from "@/lib/youtube";
 import { asIngredients, asSteps } from "@/lib/recipe-data";
 import { bool, int, json, lines, optStr, refreshSite, safeUrl, str } from "../../form";
 import type { ActionState } from "../../action-state";
@@ -24,9 +23,6 @@ export async function saveRecipe(_: ActionState, f: FormData): Promise<ActionSta
   if (!slug) errors.slug = "Please enter a valid URL slug.";
   const excerpt = str(f, "excerpt", 300);
   if (excerpt.length < 10) errors.excerpt = "Add a short description (at least 10 characters).";
-  const youtubeRaw = str(f, "youtubeUrl", 300);
-  const youtubeId = youtubeRaw ? parseYouTubeId(youtubeRaw) : null;
-  if (youtubeRaw && !youtubeId) errors.youtubeUrl = "That doesn’t look like a valid YouTube link.";
   const ingredients = asIngredients(json(f, "ingredients", [])).filter((i) => i.name.trim());
   const steps = asSteps(json(f, "steps", [])).filter((s) => s.text.trim());
   const published = bool(f, "published");
@@ -59,7 +55,6 @@ export async function saveRecipe(_: ActionState, f: FormData): Promise<ActionSta
     tips: lines(f, "tips").slice(0, 30),
     substitutions: lines(f, "substitutions").slice(0, 30),
     nutrition: Object.keys(nutrition).length ? nutrition : Prisma.DbNull,
-    youtubeUrl: youtubeId ? `https://www.youtube.com/watch?v=${youtubeId}` : null,
     tags: str(f, "tags", 500).split(",").map((t) => t.trim().toLowerCase()).filter(Boolean).slice(0, 20),
     seoTitle: optStr(f, "seoTitle", 70),
     seoDescription: optStr(f, "seoDescription", 170),

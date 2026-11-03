@@ -37,7 +37,7 @@ export type Settings = {
     address: string;
     hours: string;
   };
-  social: { youtube: string; instagram: string; facebook: string; pinterest: string; x: string };
+  social: { instagram: string; facebook: string; pinterest: string; x: string };
   shop: {
     /** Show the shop to visitors. */
     enabled: boolean;
@@ -60,48 +60,47 @@ export type Settings = {
 export const DEFAULT_SETTINGS: Settings = {
   announcement: {
     enabled: true,
-    text: "New recipes every week on our YouTube channel — cooked with love, shared with you.",
-    linkLabel: "Watch now",
-    linkHref: "/videos",
+    text: "Freshly cooked in our Lucknow cloud kitchen — homemade with love.",
+    linkLabel: "Explore our menu",
+    linkHref: "/shop",
   },
   hero: {
     eyebrow: BRAND.tagline,
-    title: "Every Flavour Tells a Story.",
+    title: "Authentic Flavours. Homemade with Love.",
     subtitle:
-      "Discover authentic homemade recipes, traditional Indian flavours and delicious creations made with love.",
-    primaryCtaLabel: "Explore Recipes",
-    primaryCtaHref: "/recipes",
-    secondaryCtaLabel: "Discover Our Kitchen",
-    secondaryCtaHref: "/about",
+      "Discover delicious food and the warmth of homemade flavours with Zauq-e-Zaika.",
+    primaryCtaLabel: "Explore Our Menu",
+    primaryCtaHref: "/shop",
+    secondaryCtaLabel: "Order Now",
+    secondaryCtaHref: "/contact",
     image: "/images/placeholders/hero.svg",
     imageAlt: "A festive Indian thali with kheer, puri, dal, curry and sweets",
   },
   home: {
-    introTitle: "Welcome to Zauq e Zaika",
+    introTitle: "Welcome to Zauq-e-Zaika",
     introBody:
-      "Zauq means taste — the kind that comes from patience, practice and a generous heart. Zaika is the flavour that stays with you long after the meal. Here, we bring both together: traditional Indian family recipes, cooked at home and shared with everyone who loves good food.",
+      "Zauq means taste — the kind that comes from patience and a generous heart. Zaika is the flavour that stays with you long after the meal. Zauq-e-Zaika is a cloud kitchen in Lucknow, bringing both together in authentic Indian food, cooked the homemade way.",
     philosophyTitle: "More than food. It’s a feeling.",
     philosophyBody:
-      "We cook the way our families taught us — slowly, honestly and with ingredients we trust. Every recipe is tested in a home kitchen, every video is made to help you cook with confidence, and every dish carries a little bit of love.",
+      "We cook the way homes cook — with patience, with care and with respect for tradition. Every dish that leaves our kitchen carries a little bit of love.",
     philosophyImage: "/images/placeholders/thali.svg",
     whyChoose: [
-      { title: "Homemade, always", body: "Recipes and food made in a real home kitchen, in small batches, the traditional way." },
-      { title: "Family recipes", body: "Flavours passed down through generations, written down so you can recreate them." },
-      { title: "Honest ingredients", body: "Simple, wholesome ingredients — no shortcuts that compromise taste." },
-      { title: "Made with love", body: "Har Zaika, Dil Se. Every dish is cooked the way we would cook for our own family." },
+      { title: "Homemade flavour", body: "Food cooked the homemade way, with the warmth of a family kitchen." },
+      { title: "Authentic taste", body: "Traditional Indian flavours, cooked the way they are meant to be." },
+      { title: "Cooked with care", body: "Every dish is prepared with attention, patience and respect for the ingredients." },
+      { title: "Homemade with love", body: "It is our name for how we cook — and our promise on every order." },
     ],
   },
   contact: {
     email: "",
     phone: "",
     whatsappNumber: "",
-    whatsappMessage: "Hello Zauq e Zaika! I have a question.",
+    whatsappMessage: "Hello Zauq-e-Zaika! I’d like to know more.",
     address: "",
     hours: "",
   },
   social: {
-    youtube: BRAND.youtube,
-    instagram: "",
+    instagram: BRAND.instagram,
     facebook: "",
     pinterest: "",
     x: "",

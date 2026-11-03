@@ -3,7 +3,7 @@
 /* `dark:` utilities follow the data-theme attribute set before first paint (see layout.tsx). */
 @custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
 
-/* ─────────────── Zauq e Zaika design tokens ─────────────── */
+/* ─────────────── Zauq-e-Zaika design tokens ─────────────── */
 @theme {
   --color-ivory: #fffdf8;
   --color-cream: #f7f0e5;
@@ -22,7 +22,7 @@
   --color-card: #ffffff;       /* raised surfaces: cards, inputs */
   --color-admin: #fbf8f2;      /* admin page background */
   --color-spice-solid: #a5522a; /* backgrounds that carry white text */
-  /* Always-dark sections (footer, video band, admin sidebar) keep these in both themes */
+  /* Always-dark sections (footer, Instagram band, admin sidebar) keep these in both themes */
   --color-night: #1e1511;
   --color-nightsoft: #5a3d2e;
   --color-paper: #fffdf8;

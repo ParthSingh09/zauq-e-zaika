@@ -7,12 +7,12 @@ import { Markdown } from "@/lib/markdown";
 import { pageMetadata } from "@/lib/seo";
 import { BRAND } from "@/lib/site";
 import { ReviewNotice } from "@/components/ui/ReviewNotice";
-import { YoutubeIcon } from "@/components/ui/SocialIcons";
+import { InstagramIcon } from "@/components/ui/SocialIcons";
 
 export const revalidate = 3600;
 export const metadata = pageMetadata({
   title: "About Us — Our Story",
-  description: "The story behind Zauq e Zaika: traditional Indian family recipes, homemade food and cooking with love.",
+  description: "The story behind Zauq-e-Zaika, a cloud kitchen in Lucknow: authentic Indian flavours, homemade with love.",
   path: "/about",
 });
 
@@ -58,12 +58,12 @@ export default async function AboutPage() {
 
       <section className="container-page">
         <div className="flex flex-col items-center rounded-[2rem] bg-night px-6 py-16 text-center text-paper">
-          <h2 className="max-w-2xl text-3xl sm:text-4xl">Come cook with us</h2>
-          <p className="mt-4 max-w-lg text-paper/70">Explore our recipes, watch us cook on YouTube, or bring a little of our kitchen home.</p>
+          <h2 className="max-w-2xl text-3xl sm:text-4xl">Taste the homemade difference</h2>
+          <p className="mt-4 max-w-lg text-paper/70">Explore our menu, follow our kitchen on Instagram, or bring a little of our flavours home.</p>
           <div className="mt-8 flex flex-wrap justify-center gap-3">
-            <Link href="/recipes" className="btn bg-paper text-night hover:bg-gold">Explore recipes</Link>
-            <a href={BRAND.youtube} target="_blank" rel="noopener noreferrer" className="btn border border-white/25 text-paper hover:bg-white/10">
-              <YoutubeIcon className="h-4 w-4" /> Watch on YouTube
+            <Link href="/shop" className="btn bg-paper text-night hover:bg-gold">Explore our menu</Link>
+            <a href={BRAND.instagram} target="_blank" rel="noopener noreferrer" className="btn border border-white/25 text-paper hover:bg-white/10">
+              <InstagramIcon className="h-4 w-4" /> Follow on Instagram
             </a>
           </div>
         </div>

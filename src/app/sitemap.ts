@@ -6,7 +6,7 @@ import { siteUrl } from "@/lib/utils";
 export const revalidate = 3600;
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const statics = ["/", "/recipes", "/videos", "/shop", "/about", "/contact", "/faq"].map((p) => ({
+  const statics = ["/", "/recipes", "/shop", "/about", "/contact", "/faq"].map((p) => ({
     url: siteUrl(p),
     changeFrequency: "weekly" as const,
     priority: p === "/" ? 1 : 0.8,

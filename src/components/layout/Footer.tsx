@@ -5,11 +5,10 @@ import { NewsletterForm } from "./NewsletterForm";
 import { BRAND, POLICY_PAGES } from "@/lib/site";
 import type { Settings } from "@/lib/settings";
 import { whatsappLink } from "@/lib/settings";
-import { FacebookIcon, InstagramIcon, PinterestIcon, WhatsappIcon, XIcon, YoutubeIcon } from "@/components/ui/SocialIcons";
+import { FacebookIcon, InstagramIcon, PinterestIcon, WhatsappIcon, XIcon } from "@/components/ui/SocialIcons";
 
 export function SocialLinks({ social, className }: { social: Settings["social"]; className?: string }) {
   const links = [
-    { href: social.youtube, label: "YouTube", Icon: YoutubeIcon },
     { href: social.instagram, label: "Instagram", Icon: InstagramIcon },
     { href: social.facebook, label: "Facebook", Icon: FacebookIcon },
     { href: social.pinterest, label: "Pinterest", Icon: PinterestIcon },
@@ -23,7 +22,7 @@ export function SocialLinks({ social, className }: { social: Settings["social"];
             href={href}
             target="_blank"
             rel="noopener noreferrer"
-            aria-label={`Zauq e Zaika on ${label}`}
+            aria-label={`${BRAND.name} on ${label}`}
             className="flex h-10 w-10 items-center justify-center rounded-full border border-white/15 text-paper/85 transition hover:border-gold hover:bg-gold hover:text-night"
           >
             <Icon className="h-[18px] w-[18px]" />
@@ -42,7 +41,6 @@ export function Footer({ settings }: { settings: Settings }) {
       title: "Explore",
       links: [
         { href: "/recipes", label: "All Recipes" },
-        { href: "/videos", label: "Cooking Videos" },
         ...(shop.enabled ? [{ href: "/shop", label: "Shop" }] : []),
         { href: "/about", label: "Our Story" },
         { href: "/faq", label: "FAQ" },
@@ -68,6 +66,9 @@ export function Footer({ settings }: { settings: Settings }) {
           <Logo tone="light" />
           <p className="mt-5 max-w-sm text-sm leading-relaxed text-paper/70">{BRAND.description}</p>
           <SocialLinks social={social} className="mt-6 flex flex-wrap gap-2" />
+          <a href={social.instagram || BRAND.instagram} target="_blank" rel="noopener noreferrer" className="mt-3 inline-block text-sm text-paper/75 transition hover:text-gold">
+            {BRAND.instagramHandle}
+          </a>
           <div className="mt-6 space-y-2 text-sm text-paper/75">
             {contact.email && (
               <a href={`mailto:${contact.email}`} className="flex items-center gap-2 hover:text-gold">
@@ -103,8 +104,8 @@ export function Footer({ settings }: { settings: Settings }) {
           ))}
         </div>
         <div className="lg:col-span-3">
-          <h2 className="font-serif text-2xl">Recipes in your inbox</h2>
-          <p className="mt-2 mb-5 text-sm text-paper/70">New family recipes and kitchen stories. No spam, unsubscribe anytime.</p>
+          <h2 className="font-serif text-2xl">Updates from our kitchen</h2>
+          <p className="mt-2 mb-5 text-sm text-paper/70">Food updates and kitchen stories. No spam, unsubscribe anytime.</p>
           <NewsletterForm tone="dark" />
         </div>
       </div>

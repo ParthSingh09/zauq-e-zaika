@@ -16,7 +16,7 @@ export default async function AdminLogin({ searchParams }: { searchParams: Promi
       <div className="w-full max-w-sm">
         <div className="mb-8 text-center">
           <LogoMark className="mx-auto h-14 w-14" />
-          <h1 className="mt-4 text-3xl text-ink">Zauq e Zaika Admin</h1>
+          <h1 className="mt-4 text-3xl text-ink">Zauq-e-Zaika Admin</h1>
           <p className="mt-1 text-sm text-muted">Sign in to manage your website.</p>
         </div>
         {(error === "forbidden" || user) && (

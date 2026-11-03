@@ -1,9 +1,9 @@
-# Zauq e Zaika — *Har Zaika, Dil Se ♡*
+# Zauq-e-Zaika — *Homemade with Love*
 
-The website for **Zauq e Zaika**, a homemade Indian food brand. It brings three things together:
+The website for **Zauq-e-Zaika**, a cloud kitchen in **Lucknow, Uttar Pradesh**. Instagram: [@ZauqeZaika](https://www.instagram.com/zauqezaika/). It brings three things together:
 
 1. **A brand website** with the story, philosophy and contact details.
-2. **A recipe platform** with search, filters, a servings scaler, ratings, favourites, printing and YouTube videos.
+2. **A recipe platform** with search, filters, a servings scaler, ratings, favourites and printing.
 3. **An online shop** for homemade food: cart, checkout, delivery areas, Razorpay-ready payments and order tracking.
 
 Everything is managed from a private **admin dashboard** at `/admin`, backed by a PostgreSQL database.
@@ -19,7 +19,7 @@ Everything is managed from a private **admin dashboard** at `/admin`, backed by 
 - [Local development](#local-development)
 - [Environment variables](#environment-variables)
 - [Admin login](#admin-login)
-- [Adding recipes, products and videos](#adding-recipes-products-and-videos)
+- [Adding recipes and products](#adding-recipes-and-products)
 - [Opening the shop and connecting payments](#opening-the-shop-and-connecting-payments)
 - [Deploying to Vercel + Supabase](#deploying-to-vercel--supabase)
 - [Security](#security)
@@ -56,13 +56,13 @@ public/
   images/placeholders/   Labelled placeholder food artwork (replace with real photos)
 src/
   app/
-    (site)/              Public website: home, recipes, videos, shop, cart, checkout,
+    (site)/              Public website: home, recipes, shop, cart, checkout,
                          orders, account, about, contact, faq, policies
     admin/(auth)/login   Admin sign-in
     admin/(panel)/       Admin dashboard (protected)
     api/                 Upload, cart quote, Razorpay verify + webhook, CSV export, view counter
     sitemap.ts, robots.ts, icon.svg, opengraph-image.png
-  components/            UI components (layout, recipes, shop, video, admin, account, ui)
+  components/            UI components (layout, recipes, shop, admin, account, ui)
   lib/                   Database, auth, settings, queries, SEO, storage, Razorpay, orders
   server/actions/        Server Actions (public forms, account, checkout, admin/*)
   middleware.ts          Fast redirect for signed-out visitors on /admin and /account
@@ -124,7 +124,6 @@ Other useful scripts:
 | `RAZORPAY_KEY_ID`, `RAZORPAY_KEY_SECRET` | optional | Online payments stay off until these are set |
 | `RAZORPAY_WEBHOOK_SECRET` | with Razorpay | Lets Razorpay confirm payments server-to-server |
 | `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET` | optional | Turns on "Continue with Google" for customers and admins. The button stays hidden until both are set. |
-| `YOUTUBE_API_KEY`, `YOUTUBE_CHANNEL_ID` | optional | Turns on one-click import of your latest uploads in the admin |
 
 **Admin → Admins & security** shows which of these are configured, without revealing their values.
 
@@ -138,20 +137,20 @@ Admin pages, server actions and API routes each check for a valid session with t
 
 ### Google sign-in (OAuth)
 
-1. In [Google Cloud Console](https://console.cloud.google.com/) create a project → **APIs & Services → OAuth consent screen** (External; app name "Zauq e Zaika"; add your support email).
+1. In [Google Cloud Console](https://console.cloud.google.com/) create a project → **APIs & Services → OAuth consent screen** (External; app name "Zauq-e-Zaika"; add your support email).
 2. **Credentials → Create credentials → OAuth client ID → Web application.** Add the authorised redirect URI `https://YOUR-DOMAIN/api/auth/google/callback` (and `http://localhost:3000/api/auth/google/callback` for local work).
 3. Copy the client ID and secret into `GOOGLE_CLIENT_ID` / `GOOGLE_CLIENT_SECRET` (Vercel → Settings → Environment Variables) and redeploy.
 4. Publish the consent screen ("In production") so any Google user can sign in, not only test users.
 
 How it works: authorization-code flow with PKCE and a `state` check; the code is exchanged server-to-server and the ID token's issuer, audience, expiry and verified-email claims are checked. A Google sign-in links to an existing account with the same verified email, or creates a new customer. On `/admin/login` it only works for accounts that already have the admin role, so Google can never grant admin access. Google-only accounts can set a password later under **My Account**.
 
-## Adding recipes, products and videos
+## Adding recipes and products
 
 **Recipes:** **Admin → Recipes → Add recipe**
 - Title, short description (shown on cards and in Google), and an introduction. The introduction supports **bold**, *italic*, links, lists and headings.
 - **Ingredients:** one row per ingredient, with an optional group (e.g. "For the puris"), quantity, unit, name and note. Numeric quantities scale automatically when visitors change the servings. Leave the quantity blank for "to taste" items.
 - **Method:** steps can be reordered with the arrows.
-- Tips, substitutions, optional nutrition (fill this in only with reliable figures), a YouTube link, category, diet, difficulty, times and servings.
+- Tips, substitutions, optional nutrition (fill this in only with reliable figures), category, diet, difficulty, times and servings.
 - Upload a photo and write its alt text.
 - Tick **Published** to make it live. Untick **Mark as sample content** once it is your real recipe.
 - To replace Kheer Puri, open it from the Recipes list and edit it.
@@ -165,8 +164,6 @@ How it works: authorization-code flow with PKCE and a `state` check; the code is
 - Remove or replace the four "(Demo)" products before launch. Deleting a product that already has orders archives it instead, so order history is kept.
 
 **Categories:** **Admin → Categories** (recipe and product categories, including images and display order).
-
-**Videos:** **Admin → Videos**. Paste a YouTube link, add a title and the publish date, and optionally link it to a recipe. With `YOUTUBE_API_KEY` and `YOUTUBE_CHANNEL_ID` set, an **Import latest uploads** button also appears. Videos load only when a visitor presses play, which keeps pages fast.
 
 **Content:** **Admin → Homepage & content** covers the announcement bar, hero banner, homepage sections, contact details, WhatsApp and social links. **Admin → Pages & policies** covers About, FAQ and the six policy pages.
 
@@ -233,10 +230,10 @@ After each later schema change, run `npm run db:deploy` (with `DIRECT_URL` set) 
 - Unique titles, meta descriptions, canonical URLs, and Open Graph and Twitter cards on every page, plus a default share image.
 - `sitemap.xml` (recipes, categories, real products, pages) and `robots.txt`. The admin, account, cart and checkout pages are excluded.
 - Structured data:
-  - **Recipe** on recipe pages, with times, ingredients and steps. Ratings appear only when real reviews exist, nutrition only when you enter it, and video only when the video has a publish date.
+  - **Recipe** on recipe pages, with times, ingredients and steps. Ratings appear only when real reviews exist and nutrition only when you enter it.
   - **Product** only on real products with real prices.
-  - **Organization**, **WebSite** (with sitelinks search), **BreadcrumbList**, **FAQPage** and **ItemList** where they apply.
-- Clean URLs (e.g. `/recipes/kheer-puri`), semantic HTML, alt text, internal linking through categories and related recipes, optimised images (AVIF/WebP) and click-to-load videos.
+  - **Organization** (with the Lucknow location and Instagram profile), **WebSite** (with sitelinks search), **BreadcrumbList**, **FAQPage** and **ItemList** where they apply.
+- Clean URLs (e.g. `/recipes/kheer-puri`), semantic HTML, alt text, internal linking through categories and related recipes, and optimised images (AVIF/WebP).
 
 ## Testing that was done
 
@@ -256,8 +253,7 @@ After each later schema change, run `npm run db:deploy` (with `DIRECT_URL` set) 
 - [ ] Real food photography for recipes, products, the hero, the About page and categories
 - [ ] Your logo as a transparent PNG or SVG (a text logo is used for now: `src/components/layout/Logo.tsx`)
 - [ ] Your personal story for the About page
-- [ ] YouTube video links (or API key + channel ID)
-- [ ] Instagram and other social links, email, phone and WhatsApp number
+- [ ] Email, phone and WhatsApp number (Instagram is already linked to @ZauqeZaika)
 
 **Business & legal**
 - [ ] Legal business name, address and grievance officer for the policies
@@ -272,6 +268,6 @@ After each later schema change, run `npm run db:deploy` (with `DIRECT_URL` set) 
 - [ ] Supabase project (database + storage bucket)
 - [ ] Vercel project and your domain
 - [ ] Razorpay account with KYC, test keys first, then live keys and a webhook secret
-- [ ] Optional: YouTube Data API key; an analytics provider (Vercel Analytics or GA4, which would also need a cookie consent banner)
+- [ ] Optional: an analytics provider (Vercel Analytics or GA4, which would also need a cookie consent banner)
 
 **Possible next steps** (each needs a third-party service): order and enquiry email notifications and customer password reset (both need an email provider such as Resend or Brevo), sending newsletters, and analytics on the dashboard.

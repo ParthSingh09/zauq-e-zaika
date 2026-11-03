@@ -58,9 +58,12 @@ export function organizationJsonLd(sameAs: string[]) {
     "@context": "https://schema.org",
     "@type": "Organization",
     name: BRAND.name,
-    slogan: BRAND.tagline,
+    description: BRAND.description,
+    slogan: BRAND.tagline.toUpperCase(),
     url: siteUrl("/"),
-    logo: siteUrl("/brand/logo-mark.png"),
+    logo: siteUrl("/brand/logo.png"),
+    image: siteUrl("/brand/logo.png"),
+    address: { "@type": "PostalAddress", addressLocality: BRAND.city, addressRegion: BRAND.region, addressCountry: BRAND.country },
     sameAs: sameAs.filter(Boolean),
   };
 }

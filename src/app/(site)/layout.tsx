@@ -10,7 +10,7 @@ export default async function SiteLayout({ children }: { children: React.ReactNo
   const s = settings.social;
   return (
     <>
-      <JsonLd data={organizationJsonLd([s.youtube, s.instagram, s.facebook, s.pinterest, s.x])} />
+      <JsonLd data={organizationJsonLd([s.instagram, s.facebook, s.pinterest, s.x])} />
       <JsonLd data={websiteJsonLd()} />
       <AnnouncementBar announcement={settings.announcement} />
       <Header />
