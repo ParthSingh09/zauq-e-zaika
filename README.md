@@ -123,6 +123,7 @@ Other useful scripts:
 | `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`, `SUPABASE_STORAGE_BUCKET` | ✅ in prod | Used for image uploads. The service-role key is server-only. |
 | `RAZORPAY_KEY_ID`, `RAZORPAY_KEY_SECRET` | optional | Online payments stay off until these are set |
 | `RAZORPAY_WEBHOOK_SECRET` | with Razorpay | Lets Razorpay confirm payments server-to-server |
+| `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET` | optional | Turns on "Continue with Google" for customers and admins. The button stays hidden until both are set. |
 | `YOUTUBE_API_KEY`, `YOUTUBE_CHANNEL_ID` | optional | Turns on one-click import of your latest uploads in the admin |
 
 **Admin → Admins & security** shows which of these are configured, without revealing their values.
@@ -134,6 +135,15 @@ Other useful scripts:
 3. Change the password straight away under **Admins & security**. You can add more admins there too.
 
 Admin pages, server actions and API routes each check for a valid session with the `ADMIN` role on the server. Customer accounts cannot reach any of them.
+
+### Google sign-in (OAuth)
+
+1. In [Google Cloud Console](https://console.cloud.google.com/) create a project → **APIs & Services → OAuth consent screen** (External; app name "Zauq e Zaika"; add your support email).
+2. **Credentials → Create credentials → OAuth client ID → Web application.** Add the authorised redirect URI `https://YOUR-DOMAIN/api/auth/google/callback` (and `http://localhost:3000/api/auth/google/callback` for local work).
+3. Copy the client ID and secret into `GOOGLE_CLIENT_ID` / `GOOGLE_CLIENT_SECRET` (Vercel → Settings → Environment Variables) and redeploy.
+4. Publish the consent screen ("In production") so any Google user can sign in, not only test users.
+
+How it works: authorization-code flow with PKCE and a `state` check; the code is exchanged server-to-server and the ID token's issuer, audience, expiry and verified-email claims are checked. A Google sign-in links to an existing account with the same verified email, or creates a new customer. On `/admin/login` it only works for accounts that already have the admin role, so Google can never grant admin access. Google-only accounts can set a password later under **My Account**.
 
 ## Adding recipes, products and videos
 

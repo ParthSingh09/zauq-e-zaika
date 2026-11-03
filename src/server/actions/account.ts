@@ -98,12 +98,13 @@ export async function changePassword(_: ActionState, form: FormData): Promise<Ac
   if (!user) return { ok: false, message: "Please sign in again." };
   if (!(await rateLimit("pw-change", 10, 3600, user.id))) return { ok: false, message: "Too many attempts. Try again later." };
   const parsed = z
-    .object({ current: z.string().min(1, "Enter your current password."), next: password, confirm: z.string() })
+    .object({ current: z.string().optional().default(""), next: password, confirm: z.string() })
     .refine((d) => d.next === d.confirm, { message: "Passwords do not match.", path: ["confirm"] })
     .safeParse(Object.fromEntries(form));
   if (!parsed.success) return fieldErrors(parsed.error);
   const record = await prisma.user.findUniqueOrThrow({ where: { id: user.id } });
-  if (!(await verifyPassword(parsed.data.current, record.passwordHash)))
+  // Google-only accounts have no password yet, so they can set one without a current password.
+  if (record.passwordHash && !(await verifyPassword(parsed.data.current, record.passwordHash)))
     return { ok: false, message: "Current password is incorrect.", errors: { current: "Incorrect password." } };
   await prisma.user.update({ where: { id: user.id }, data: { passwordHash: await hashPassword(parsed.data.next) } });
   await destroyOtherSessions(user.id);

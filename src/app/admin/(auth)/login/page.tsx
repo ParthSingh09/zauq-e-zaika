@@ -3,6 +3,7 @@ import { getCurrentUser } from "@/lib/auth";
 import { LoginForm } from "@/components/account/AuthForms";
 import { LogoMark } from "@/components/layout/Logo";
 import { pageMetadata } from "@/lib/seo";
+import { GoogleButton, OAuthError } from "@/components/account/GoogleButton";
 
 export const metadata = pageMetadata({ title: "Admin Sign In", path: "/admin/login", noIndex: true });
 
@@ -23,7 +24,7 @@ export default async function AdminLogin({ searchParams }: { searchParams: Promi
             Your account does not have admin access. Sign in with an admin account.
           </p>
         )}
-        <div className="card p-6"><LoginForm area="admin" /></div>
+        <div className="card p-6"><OAuthError code={error} /><GoogleButton area="admin" /><LoginForm area="admin" /></div>
       </div>
     </main>
   );

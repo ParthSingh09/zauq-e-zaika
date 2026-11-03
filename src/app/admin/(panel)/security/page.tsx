@@ -20,6 +20,7 @@ export default async function Security() {
     { label: "Image storage: Supabase (STORAGE_DRIVER=supabase + keys)", ok: process.env.STORAGE_DRIVER === "supabase" && Boolean(process.env.SUPABASE_URL && process.env.SUPABASE_SERVICE_ROLE_KEY) },
     { label: `Razorpay keys${razorpayConfigured() ? (razorpayTestMode() ? " (test mode)" : " (live mode)") : ""}`, ok: razorpayConfigured() },
     { label: "Razorpay webhook secret", ok: Boolean(process.env.RAZORPAY_WEBHOOK_SECRET) },
+    { label: "Google sign-in (GOOGLE_CLIENT_ID + GOOGLE_CLIENT_SECRET)", ok: Boolean(process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET) },
     { label: "YouTube API (optional auto-import)", ok: Boolean(process.env.YOUTUBE_API_KEY && process.env.YOUTUBE_CHANNEL_ID) },
   ];
   return (

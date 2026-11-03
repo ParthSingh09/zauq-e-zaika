@@ -23,12 +23,14 @@ model User {
   email        String   @unique
   name         String
   phone        String?
-  passwordHash String
+  /// Null for accounts created through Google sign-in that never set a password.
+  passwordHash String?
   role         Role     @default(CUSTOMER)
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 
   sessions     Session[]
+  accounts     OAuthAccount[]
   orders       Order[]
   savedRecipes SavedRecipe[]
   wishlist     WishlistItem[]
@@ -44,6 +46,21 @@ model Session {
   expiresAt DateTime
   createdAt DateTime @default(now())
 
+  @@index([userId])
+}
+
+/// External sign-in identities (e.g. Google) linked to a user.
+model OAuthAccount {
+  id                String   @id @default(cuid())
+  provider          String
+  /// The provider's stable user ID (Google "sub"). Never the email, which can change.
+  providerAccountId String
+  email             String
+  userId            String
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt         DateTime @default(now())
+
+  @@unique([provider, providerAccountId])
   @@index([userId])
 }
 
